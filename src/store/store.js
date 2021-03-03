@@ -1,15 +1,15 @@
-import ReactRedux from 'react-redux';
-import App from '../components/app/App';
-import rootReducer from './reducers/rootReducer.js';
-import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware } from "redux";
+import rootReducer from "./reducers/rootReducer.js";
+import thunkMiddleware from "redux-thunk";
 
 var initialState = {
   currentProduct: {},
 };
 
-var store = Redux.createStore(rootReducer,
+var store = createStore(
+  rootReducer,
   initialState,
   applyMiddleware(thunkMiddleware)
-  );
+);
 
-  export default store;
+export default store;

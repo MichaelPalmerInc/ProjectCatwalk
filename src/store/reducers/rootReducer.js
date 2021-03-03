@@ -1,18 +1,8 @@
-import Redux from 'redux';
-import productReducer from './productReducer.js';
+import { combineReducers } from "redux";
+import productReducer from "./productReducer.js";
 
-var rootReducer = Redux.combineReducers({
-  productReducer
+var rootReducer = combineReducers({
+  productReducer,
 });
 
 export default rootReducer;
-
-
-
-
-
-
-
-
-
-
