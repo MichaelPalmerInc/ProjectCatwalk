@@ -11,23 +11,23 @@ let apiController = {
 
 
   // Products API calls
-  getProduct: (pages, countNum) => {
-    let page = pages || 1;
-    let count = countNum || 5;
-    let params = {page: page, count: count};
+  getProducts: ({pages, count}) => {
+    pages = pages || 1;
+     count = count || 5;
+    let params = {page: pages, count: count};
     axios.get('/products', {params})
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error('Oh noes ', err);
     })
   },
   //I'm unsure of whether I'm doing this the right way since I'm not sure how exactly the productId is going to be passed on, but I assume something like this.
-  getProductById: (productId) => {
+  getProduct: (productId) => {
     axios.get(`/product/${productId}`)
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error('Oh noes ', err);
@@ -37,7 +37,7 @@ let apiController = {
   getProductStyles: (productId) => {
     axios.get(`/product/${productId}/styles`)
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error('Oh noes ', err);
@@ -47,31 +47,29 @@ let apiController = {
   getProductRelated: (productId) => {
     axios.get(`/product/${productId}/related`)
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error('Oh noes ', err);
     })
   },
   //Reviews API Calls
-  getReviews: (pages, countNum, sortVal, productId) => {
-    let page = pages || 1;
-    let count = countNum || 5;
-    let sort = sortVal
-    let product_id = productId
-    let params = {page: page, count: count, sort:sort, product_id: product_id};
+  getReviews: (productId, {pages, count, sort}) => {
+     pages = pages || 1;
+     count = count || 5;
+    let params = {page: pages, count: count, sort:sort, product_id: productId};
     axios.get('/reviews', {params})
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error('Oh noes ', err);
     })
   },
-  getReivewMetaData: (product_id) => {
-    axios.get('/reviews/meta', {product_id})
+  getReivewMetaData: (productId) => {
+    axios.get('/reviews/meta', {productId})
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .then ((err) => {
       console.error('Oh noes ', err);
@@ -87,8 +85,8 @@ let apiController = {
       console.error('Oh noes ', err);
     })
   },
-  markHelpful: (review_id) => {
-    axios.put(`/reviews/${review_id}/helpful`)
+  markHelpful: (reviewId) => {
+    axios.put(`/reviews/${reviewId}/helpful`)
     .then((response) => {
       console.log(response);
     })
@@ -96,8 +94,8 @@ let apiController = {
       console.error('Oh noes ', err);
     })
   },
-  reportReview: (review_id) => {
-    axios.put(`/reviews/${review_id}/report`)
+  reportReview: (reviewId) => {
+    axios.put(`/reviews/${reviewId}/report`)
     .then((response) => {
       console.log(response);
     })
@@ -106,26 +104,26 @@ let apiController = {
     })
   },
   //Questions and Answers API calls
-  getQuestions: (pages, countNum) => {
-    let page = pages || 1;
-    let count = countNum || 5;
-    let params = {page: page, count: count};
+  getQuestions: (productId, {pages, count}) => {
+    pages = pages || 1;
+    count = count || 5;
+    let params = {page: pages, count: count};
     axios.get('/qa/questions', {params})
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error('Oh noes ', err);
     })
   },
-  getAnswers: (question_id, pages, countNum) => {
-    let page = pages || 1;
-    let count = countNum || 5;
-    let params = {page: page, count: count};
+  getAnswers: (questionId, {pages, count}) => {
+    pages = pages || 1;
+    count = count || 5;
+    let params = {page: pages, count: count};
 
-    axios.get(`/qa/questions/${question_id}/answers`, {params})
+    axios.get(`/qa/questions/${questionId}/{answers`, {params})
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error('Oh noes ', err);
@@ -141,8 +139,8 @@ let apiController = {
       console.error('Oh noes ', err);
     })
   },
-  postAnswer: (question_id, postVal) => {
-    axios.post(`/qa/questions/${question_id}/answers`, postVal)
+  postAnswer: (questionId, postVal) => {
+    axios.post(`/qa/questions/${questionId}/answers`, postVal)
     .then((response) => {
       console.log(response);
     })
@@ -150,8 +148,8 @@ let apiController = {
       console.error('Oh noes ', err);
     })
   },
-  markHelpfulQuestion: (question_id) => {
-    axios.put(`/qa/questions/${question_id}/helpful`)
+  markHelpfulQuestion: (questionId) => {
+    axios.put(`/qa/questions/${questionId}/helpful`)
     .then((response) => {
       console.log(response);
     })
@@ -159,8 +157,8 @@ let apiController = {
       console.error('Oh noes ', err);
     })
   },
-  reportQuestion: (question_id) => {
-    axios.put(`/qa/questions/${question_id}/report`)
+  reportQuestion: (questionId) => {
+    axios.put(`/qa/questions/${questionId}/report`)
     .then((response) => {
       console.log(response);
     })
@@ -168,8 +166,8 @@ let apiController = {
       console.error('Oh noes ', err);
     })
   },
-  markHelpfulAnswer: (answer_id) => {
-    axios.put(`/qa/answers/${answer_id}/helpful`)
+  markHelpfulAnswer: (answerId) => {
+    axios.put(`/qa/answers/${answerId}/helpful`)
     .then((response) => {
       console.log(response);
     })
@@ -177,8 +175,8 @@ let apiController = {
       console.error('Oh noes ', err);
     })
   },
-  reportAnswer: (answer_id) => {
-    axios.put(`/qa/answers/${answer_id}/report`)
+  reportAnswer: (answerId) => {
+    axios.put(`/qa/answers/${answerId}/report`)
     .then((response) => {
       console.log(response);
     })
@@ -189,14 +187,14 @@ let apiController = {
   getCart: () => {
     axios.get('/cart')
     .then((data) => {
-      console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error('Oh noes ', err);
     })
   },
-  postCart: (sku_id) => {
-    axios.post('/cart', {sku_id:sku_id})
+  postCart: (skuId) => {
+    axios.post('/cart', {sku_id:skuId})
     .then((response) => {
       console.log(response);
     })
