@@ -2,10 +2,10 @@ import React from 'react';
 
 var Search = () => {
   return (
-    <from>
+    <form>
       <input type = 'text' placeholder = 'Have a question? Search for answers...'></input>
       <input type = 'submit'></input>
-    </from>
+    </form>
   )
 };
 
