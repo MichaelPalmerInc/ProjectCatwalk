@@ -13,9 +13,9 @@ let apiController = {
   // Products API calls
   getProducts: ({pages, count}) => {
     pages = pages || 1;
-     count = count || 5;
+    count = count || 5;
     let params = {page: pages, count: count};
-    axios.get('/products', {params})
+    return axios.get('/products', {params})
     .then((data) => {
       return data;
     })
@@ -25,7 +25,7 @@ let apiController = {
   },
   //I'm unsure of whether I'm doing this the right way since I'm not sure how exactly the productId is going to be passed on, but I assume something like this.
   getProduct: (productId) => {
-    axios.get(`/product/${productId}`)
+    return axios.get(`/product/${productId}`)
     .then((data) => {
       return data;
     })
@@ -35,7 +35,7 @@ let apiController = {
   },
 
   getProductStyles: (productId) => {
-    axios.get(`/product/${productId}/styles`)
+    return axios.get(`/product/${productId}/styles`)
     .then((data) => {
       return data;
     })
@@ -45,7 +45,7 @@ let apiController = {
   },
 
   getProductRelated: (productId) => {
-    axios.get(`/product/${productId}/related`)
+   return axios.get(`/product/${productId}/related`)
     .then((data) => {
       return data;
     })
@@ -58,7 +58,7 @@ let apiController = {
      pages = pages || 1;
      count = count || 5;
     let params = {page: pages, count: count, sort:sort, product_id: productId};
-    axios.get('/reviews', {params})
+    return axios.get('/reviews', {params})
     .then((data) => {
       return data;
     })
@@ -67,7 +67,7 @@ let apiController = {
     })
   },
   getReivewMetaData: (productId) => {
-    axios.get('/reviews/meta', {productId})
+    return axios.get('/reviews/meta', {productId})
     .then((data) => {
       return data;
     })
@@ -77,7 +77,7 @@ let apiController = {
   },
   // For this next call, it's a post that sends back a lot of data so I figure it's probably better to handle the data in the actual jsx file than here so all we need to get passed into the call is an object of the post data. If you'd rather handle that here let me know and I can change up how this function is set up.
   postReview: (postVal) => {
-    axios.post('/reviews', postVal)
+    return axios.post('/reviews', postVal)
     .then((response) => {
       console.log(response);
     })
@@ -86,7 +86,7 @@ let apiController = {
     })
   },
   markHelpful: (reviewId) => {
-    axios.put(`/reviews/${reviewId}/helpful`)
+    return axios.put(`/reviews/${reviewId}/helpful`)
     .then((response) => {
       console.log(response);
     })
@@ -95,7 +95,7 @@ let apiController = {
     })
   },
   reportReview: (reviewId) => {
-    axios.put(`/reviews/${reviewId}/report`)
+    return axios.put(`/reviews/${reviewId}/report`)
     .then((response) => {
       console.log(response);
     })
@@ -108,7 +108,7 @@ let apiController = {
     pages = pages || 1;
     count = count || 5;
     let params = {page: pages, count: count};
-    axios.get('/qa/questions', {params})
+    return axios.get('/qa/questions', {params})
     .then((data) => {
       return data;
     })
@@ -121,7 +121,7 @@ let apiController = {
     count = count || 5;
     let params = {page: pages, count: count};
 
-    axios.get(`/qa/questions/${questionId}/{answers`, {params})
+    return axios.get(`/qa/questions/${questionId}/{answers`, {params})
     .then((data) => {
       return data;
     })
@@ -131,7 +131,7 @@ let apiController = {
   },
   //handling this in the same way as the reviews POST. Take in an object as a param so we handle all of the gathering in the jsx file.
   postQuestion: (postVal) => {
-    axios.post('/qa/questions', postVal)
+    return axios.post('/qa/questions', postVal)
     .then((response) => {
       console.log(response);
     })
@@ -140,7 +140,7 @@ let apiController = {
     })
   },
   postAnswer: (questionId, postVal) => {
-    axios.post(`/qa/questions/${questionId}/answers`, postVal)
+    return axios.post(`/qa/questions/${questionId}/answers`, postVal)
     .then((response) => {
       console.log(response);
     })
@@ -149,7 +149,7 @@ let apiController = {
     })
   },
   markHelpfulQuestion: (questionId) => {
-    axios.put(`/qa/questions/${questionId}/helpful`)
+    return axios.put(`/qa/questions/${questionId}/helpful`)
     .then((response) => {
       console.log(response);
     })
@@ -158,7 +158,7 @@ let apiController = {
     })
   },
   reportQuestion: (questionId) => {
-    axios.put(`/qa/questions/${questionId}/report`)
+    return axios.put(`/qa/questions/${questionId}/report`)
     .then((response) => {
       console.log(response);
     })
@@ -167,7 +167,7 @@ let apiController = {
     })
   },
   markHelpfulAnswer: (answerId) => {
-    axios.put(`/qa/answers/${answerId}/helpful`)
+    return axios.put(`/qa/answers/${answerId}/helpful`)
     .then((response) => {
       console.log(response);
     })
@@ -176,7 +176,7 @@ let apiController = {
     })
   },
   reportAnswer: (answerId) => {
-    axios.put(`/qa/answers/${answerId}/report`)
+    return axios.put(`/qa/answers/${answerId}/report`)
     .then((response) => {
       console.log(response);
     })
@@ -185,7 +185,7 @@ let apiController = {
     })
   },
   getCart: () => {
-    axios.get('/cart')
+    return axios.get('/cart')
     .then((data) => {
       return data;
     })
@@ -194,7 +194,7 @@ let apiController = {
     })
   },
   postCart: (skuId) => {
-    axios.post('/cart', {sku_id:skuId})
+    return axios.post('/cart', {sku_id:skuId})
     .then((response) => {
       console.log(response);
     })
@@ -204,7 +204,7 @@ let apiController = {
   },
   //This last one I'm unsure of how to handle it since I don't fully get what an interaction is.
   logInteraction: (params) => {
-    axios.post('/interactions', params)
+    return axios.post('/interactions', params)
     .then((response) => {
       console.log(response);
     })
