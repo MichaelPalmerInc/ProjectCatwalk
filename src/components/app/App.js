@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Overview from '../overview/Overview.js'
 function App() {
   return (
     <div className="App">
@@ -18,6 +18,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <Overview/>
     </div>
   );
 }
