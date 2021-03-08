@@ -1,5 +1,5 @@
 let axios = require('axios');
-let config = require('/src/config.js');
+let config = require('./config/config.js');
 
 axios.defaults.baseURL = config.server;
 axios.defaults.headers.common['Authorization'] = config.token;
