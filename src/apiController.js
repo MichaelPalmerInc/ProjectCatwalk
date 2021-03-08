@@ -24,7 +24,7 @@ let apiController = {
   //I'm unsure of whether I'm doing this the right way since I'm not sure how exactly the productId is going to be passed on, but I assume something like this.
   getProduct: (productId) => {
     return axios
-      .get(`/product/${productId}`)
+      .get(`/products/${productId}`)
       .then((data) => {
         return data;
       })
@@ -35,7 +35,7 @@ let apiController = {
 
   getProductStyles: (productId) => {
     return axios
-      .get(`/product/${productId}/styles`)
+      .get(`/products/${productId}/styles`)
       .then((data) => {
         return data;
       })
@@ -46,7 +46,7 @@ let apiController = {
 
   getProductRelated: (productId) => {
     return axios
-      .get(`/product/${productId}/related`)
+      .get(`/products/${productId}/related`)
       .then((data) => {
         return data;
       })
