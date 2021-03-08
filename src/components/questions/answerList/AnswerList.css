@@ -1,5 +1,19 @@
 .load_answers {
-  padding: 5px;
+  padding: 3px;
+  max-width: 150px;
+  cursor: pointer;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.775rem;
+  background-color: transparent;
+  border: none;
+  -webkit-tap-highlight-color: grey;
+  user-select: none;
+}
+.load_answers:hover {
+  background-color: #F5F5F5;
+  border-radius: 3px;
 }
 
 .answer_list_container {

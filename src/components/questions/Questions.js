@@ -9,14 +9,8 @@ var Questions = () => {
       <div class = 'search_form'>
       <Search />
       </div>
-
       <QuestionList />
-      <div class = 'q_list_btns'>
-        <button>More Answered Questions</button>
-        <button>Add a question</button>
-      </div>
     </div>
-
   )
 };
 

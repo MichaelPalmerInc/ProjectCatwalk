@@ -1,0 +1,9 @@
+.q_list_btns {
+  display: flex;
+  margin-left: 15px;
+}
+
+button {
+  padding: 5px;
+  margin-right: 20px;
+}
