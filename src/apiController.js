@@ -66,14 +66,14 @@ let apiController = {
         console.error('Oh noes ', err);
       });
   },
-  getReivewMetaData: (productId) => {
+  getReviewMetaData: (productId) => {
     return axios
-      .get('/reviews/meta', { product_id: productId })
+      .get('/reviews/meta', { params: { product_id: productId } })
       .then((data) => {
         return data;
       })
-      .then((err) => {
-        console.error('Oh noes ', err);
+      .catch((err) => {
+        console.error(err);
       });
   },
   // For this next call, it's a post that sends back a lot of data so I figure it's probably better to handle the data in the actual jsx file than here so all we need to get passed into the call is an object of the post data. If you'd rather handle that here let me know and I can change up how this function is set up.
