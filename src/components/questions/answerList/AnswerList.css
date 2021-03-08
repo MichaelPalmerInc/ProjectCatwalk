@@ -1,0 +1,16 @@
+.load_answers {
+  padding: 5px;
+}
+
+.answer_list_container {
+  display: flex;
+}
+
+.a {
+  font-weight: bold;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
