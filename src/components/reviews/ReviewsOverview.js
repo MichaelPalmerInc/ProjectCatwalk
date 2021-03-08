@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import Breakdown from './Breakdown';
 import ProductBreakdown from './ProductBreakdown';
 import Rating from '../shared/Rating';
+import { characteristicValues } from './Reviews';
 
 /* Styles */
 
@@ -33,28 +34,56 @@ const useStyles = makeStyles({
   productBreakdownContainer: {},
 });
 
+const averageRating = (ratingObj) => {
+  let total = 0;
+  let quantity = 0;
+  for (let rating in ratingObj) {
+    total += rating * ratingObj[rating];
+    quantity += parseInt(ratingObj[rating]);
+  }
+  return Math.round((total * 10) / quantity) / 10;
+};
+
+const ratingCount = (ratingObj) => {
+  let total = 0;
+  for (let rating in ratingObj) {
+    total += parseInt(ratingObj[rating]);
+  }
+  return total;
+};
+
 /* Render */
 
 const ReviewsOverview = (props) => {
   const classes = useStyles(props);
+  const rating = averageRating(props.data.ratings);
+  const total = ratingCount(props.data.ratings);
+  const characteristicBreakdowns = [];
+  for (let characteristic in props.data.characteristics) {
+    characteristicBreakdowns.push(
+      <ProductBreakdown
+        name={characteristic}
+        options={characteristicValues.overview[characteristic]}
+        value={props.data.characteristics[characteristic].value}
+      />
+    );
+  }
+  console.log('Data: ', props.data);
   return (
     <div className={`${classes.root} ${props.className}`}>
       <div className={classes.starRating}>
-        <div className="number">3.5</div>
-        <Rating value={3.5} precision={0.25} readOnly={true} color="black" />
+        <div className="number">{rating}</div>
+        <Rating value={rating} precision={0.25} readOnly={true} color="black" />
       </div>
       <div className={classes.usersRecommend}>100% of reviews recommend this product</div>
       <div className={classes.breakdownContainer}>
-        <Breakdown title="5 stars" percentage={90 / 104} />
-        <Breakdown title="4 stars" percentage={10 / 104} />
-        <Breakdown title="3 stars" percentage={0 / 104} />
-        <Breakdown title="2 stars" percentage={0 / 104} />
-        <Breakdown title="1 stars" percentage={4 / 104} />
+        <Breakdown title="5 stars" percentage={props.data.ratings[5] / total} />
+        <Breakdown title="4 stars" percentage={props.data.ratings[4] / total} />
+        <Breakdown title="3 stars" percentage={props.data.ratings[3] / total} />
+        <Breakdown title="2 stars" percentage={props.data.ratings[2] / total} />
+        <Breakdown title="1 stars" percentage={props.data.ratings[1] / total} />
       </div>
-      <div className={classes.productBreakdownContainer}>
-        <ProductBreakdown name="Size" options={['Too small', 'Perfect', 'Too large']} value={3} />
-        <ProductBreakdown name="Comfort" options={['Poor', 'Perfect']} value={5} />
-      </div>
+      <div className={classes.productBreakdownContainer}>{characteristicBreakdowns}</div>
     </div>
   );
 };

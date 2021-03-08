@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import PhotoList from '../shared/PhotoList';
 import Rating from '../shared/Rating';
 
 const useStyles = makeStyles({
@@ -71,25 +72,30 @@ const wordBreak = (input, maxLength = 75, seperator = ' ') => {
   return [input.substr(0, breakpoint) + '...', '...' + input.substr(breakpoint)];
 };
 
+const dateString = (dateStringFromAPI) => {
+  const date = new Date(dateStringFromAPI);
+  return date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+};
+
 const Review = (props) => {
   const classes = useStyles(props);
-  const title = wordBreak(props.title);
+  const title = wordBreak(props.summary);
   return (
     <div className={`${props.className ? props.className : ''} ${classes.root}`}>
       <Rating className={classes.rating} value={props.rating} precision={0.25} readOnly={true} color="black" />
       <div className={classes.userinfo}>
-        {props.user.verified ? '✓  ' : ''}
-        {props.user.name}, {props.date}
+        {props.reviewer_name}, {dateString(props.date)}
       </div>
       <div className={classes.title}>{title[0]}</div>
       <div className={classes.content}>
         {title[1] ? <p>{title[1]}</p> : ''}
-        <p>{props.content}</p>
+        <p>{props.body}</p>
+        {props.photos.length ? <PhotoList photos={props.photos} /> : ''}
         {props.recommend ? <p className={classes.recommend}>I recommend this product</p> : ''}
         {props.response ? <div className={classes.response}>{props.response}</div> : ''}
       </div>
       <div className={classes.helpful}>
-        Helpful? <a href="#">Yes</a> ({props.helpful}) | <a href="#">Report</a>
+        Helpful? <a href="#">Yes</a> ({props.helpfulness}) | <a href="#">Report</a>
       </div>
     </div>
   );

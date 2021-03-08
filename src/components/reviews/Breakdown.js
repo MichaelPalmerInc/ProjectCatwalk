@@ -37,7 +37,7 @@ const Breakdown = (props) => {
     <div className={classes.root}>
       <div className={classes.title}>{props.title}</div>
       <div className={classes.bar}>
-        <div className={classes.filled} style={{ width: props.percentage * 100 + '%' }}></div>
+        <div className={classes.filled} style={{ width: (props.percentage ? props.percentage : 0) * 100 + '%' }}></div>
       </div>
     </div>
   );
