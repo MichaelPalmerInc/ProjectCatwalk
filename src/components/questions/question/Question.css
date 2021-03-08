@@ -1,0 +1,31 @@
+
+.question_container {
+  margin-bottom: 30px;
+  max-width: 60%;
+}
+
+.question_line {
+  display: flex;
+  justify-content: space-between;
+
+}
+.question {
+  display: flex;
+  margin-bottom: 10px;
+}
+.help_add {
+  display: flex;
+}
+
+.q {
+  font-weight: bold;
+}
+
+.question_text {
+margin-left: 10px;
+}
+
+.add_answer_link {
+font-size: small;
+justify-content: flex-end;
+}
