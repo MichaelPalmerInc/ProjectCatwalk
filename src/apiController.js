@@ -8,7 +8,7 @@ axios.defaults.headers.common['Authorization'] = config.token;
 // They'll also need to have actual stuff written in them to actually use them, but I figure people can fill in the info for their own functions as we go on.
 let apiController = {
   // Products API calls
-  getProducts: ({ pages = 1, count = 5 }) => {
+  getProducts: ({ pages = 1, count = 5 } = {}) => {
     let params = { page: pages, count: count };
     return axios
       .get('/products', { params })
@@ -53,7 +53,7 @@ let apiController = {
       });
   },
   //Reviews API Calls
-  getReviews: (productId, { pages = 1, count = 5, sort = 'relevant' }) => {
+  getReviews: (productId, { pages = 1, count = 5, sort = 'relevant' } = {}) => {
     pages = pages || 1;
     count = count || 5;
     let params = { page: pages, count: count, sort: sort, product_id: productId };
@@ -108,7 +108,7 @@ let apiController = {
       });
   },
   //Questions and Answers API calls
-  getQuestions: (productId, { pages = 1, count = 5 }) => {
+  getQuestions: (productId, { pages = 1, count = 5 } = {}) => {
     let params = { page: pages, count: count, product_id: productId };
     return axios
       .get('/qa/questions', { params })
@@ -119,7 +119,7 @@ let apiController = {
         console.error('Oh noes ', err);
       });
   },
-  getAnswers: (questionId, { pages = 1, count = 5 }) => {
+  getAnswers: (questionId, { pages = 1, count = 5 } = {}) => {
     let params = { page: pages, count: count };
 
     return axios
