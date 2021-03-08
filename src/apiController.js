@@ -68,7 +68,7 @@ let apiController = {
   },
   getReivewMetaData: (productId) => {
     return axios
-      .get('/reviews/meta', { productId })
+      .get('/reviews/meta', { product_id: productId })
       .then((data) => {
         return data;
       })
