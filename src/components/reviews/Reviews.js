@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
+import apiController from '../../apiController';
 import ReviewsOverview from './ReviewsOverview';
 import ReviewsList from './ReviewsList';
 
@@ -29,41 +30,22 @@ const useStyles = makeStyles({
 });
 
 /* Render */
-const exampleReviewData = [
-  {
-    title: 'Review title with word-break truncation to prevent wrapping onto the next line, if necessary.',
-    rating: 5,
-    recommend: false,
-    user: {
-      name: 'User1234',
-      verified: true,
-    },
-    date: 'January 1, 2019',
-    helpful: 10,
-    content:
-      'Donut gummi bears gingerbread gummies chocolate. Ice cream apple pie tiramisu fruitcake chupa chups icing apple pie. Lemon drops cake pudding pudding.',
-  },
-  {
-    title: 'Donut chocolate bar pudding.',
-    rating: 2.75,
-    recommend: true,
-    user: {
-      name: 'Cognito',
-      verified: false,
-    },
-    date: 'April 2, 2019',
-    helpful: 9,
-    content: 'Lollipop marshmallow cotton candy. Chocolate bar gingerbread sweet carrot cake.',
-    response: 'Marzipan danish jelly beans gummi bears apple pie cheesecake topping biscuit sesame snaps.',
-  },
-];
+
+const exampleProductId = 21112;
+
 const Reviews = (props) => {
+  const [reviews, changeReviews] = useState([]);
+  const [reviewMetaData, changeReviewMetaData] = useState([]);
+  useEffect(() => {
+    const productId = props.productId || exampleProductId;
+    apiController.getReviews(productId).then((results) => console.log('Reviews: ', results));
+    apiController.getReviewMetaData(productId).then((results) => console.log('MetaData: ', results));
+  }, [props.productId]);
   const classes = useStyles(props);
   return (
     <div className={classes.root}>
       <h6 className={classes.title}>Ratings & Reviews</h6>
       <ReviewsOverview className={classes.left} />
-      <ReviewsList className={classes.right} data={exampleReviewData} />
     </div>
   );
 };
