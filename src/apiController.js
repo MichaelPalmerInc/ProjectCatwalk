@@ -1,5 +1,5 @@
 let axios = require('axios');
-let config = require('/src/config.js');
+let config = require('./config/config.js');
 
 axios.defaults.baseURL = config.server;
 axios.defaults.headers.common['Authorization'] = config.token;
@@ -8,9 +8,7 @@ axios.defaults.headers.common['Authorization'] = config.token;
 // They'll also need to have actual stuff written in them to actually use them, but I figure people can fill in the info for their own functions as we go on.
 let apiController = {
   // Products API calls
-  getProducts: ({ pages, count }) => {
-    pages = pages || 1;
-    count = count || 5;
+  getProducts: ({ pages = 1, count = 5 } = {}) => {
     let params = { page: pages, count: count };
     return axios
       .get('/products', { params })
@@ -24,7 +22,7 @@ let apiController = {
   //I'm unsure of whether I'm doing this the right way since I'm not sure how exactly the productId is going to be passed on, but I assume something like this.
   getProduct: (productId) => {
     return axios
-      .get(`/product/${productId}`)
+      .get(`/products/${productId}`)
       .then((data) => {
         return data;
       })
@@ -35,7 +33,7 @@ let apiController = {
 
   getProductStyles: (productId) => {
     return axios
-      .get(`/product/${productId}/styles`)
+      .get(`/products/${productId}/styles`)
       .then((data) => {
         return data;
       })
@@ -46,7 +44,7 @@ let apiController = {
 
   getProductRelated: (productId) => {
     return axios
-      .get(`/product/${productId}/related`)
+      .get(`/products/${productId}/related`)
       .then((data) => {
         return data;
       })
@@ -55,7 +53,7 @@ let apiController = {
       });
   },
   //Reviews API Calls
-  getReviews: (productId, { pages, count, sort }) => {
+  getReviews: (productId, { pages = 1, count = 5, sort = 'relevant' } = {}) => {
     pages = pages || 1;
     count = count || 5;
     let params = { page: pages, count: count, sort: sort, product_id: productId };
@@ -68,14 +66,14 @@ let apiController = {
         console.error('Oh noes ', err);
       });
   },
-  getReivewMetaData: (productId) => {
+  getReviewMetaData: (productId) => {
     return axios
-      .get('/reviews/meta', { productId })
+      .get('/reviews/meta', { params: { product_id: productId } })
       .then((data) => {
         return data;
       })
-      .then((err) => {
-        console.error('Oh noes ', err);
+      .catch((err) => {
+        console.error(err);
       });
   },
   // For this next call, it's a post that sends back a lot of data so I figure it's probably better to handle the data in the actual jsx file than here so all we need to get passed into the call is an object of the post data. If you'd rather handle that here let me know and I can change up how this function is set up.
@@ -90,30 +88,18 @@ let apiController = {
       });
   },
   markHelpful: (reviewId) => {
-    return axios
-      .put(`/reviews/${reviewId}/helpful`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.error('Oh noes ', err);
-      });
+    return axios.put(`/reviews/${reviewId}/helpful`).catch((err) => {
+      console.error('Oh noes ', err);
+    });
   },
   reportReview: (reviewId) => {
-    return axios
-      .put(`/reviews/${reviewId}/report`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.error('Oh noes ', err);
-      });
+    return axios.put(`/reviews/${reviewId}/report`).catch((err) => {
+      console.error('Oh noes ', err);
+    });
   },
   //Questions and Answers API calls
-  getQuestions: (productId, { pages, count }) => {
-    pages = pages || 1;
-    count = count || 5;
-    let params = { page: pages, count: count };
+  getQuestions: (productId, { pages = 1, count = 5 } = {}) => {
+    let params = { page: pages, count: count, product_id: productId };
     return axios
       .get('/qa/questions', { params })
       .then((data) => {
@@ -123,9 +109,7 @@ let apiController = {
         console.error('Oh noes ', err);
       });
   },
-  getAnswers: (questionId, { pages, count }) => {
-    pages = pages || 1;
-    count = count || 5;
+  getAnswers: (questionId, { pages = 1, count = 5 } = {}) => {
     let params = { page: pages, count: count };
 
     return axios
