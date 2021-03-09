@@ -1,8 +1,11 @@
 import React from 'react';
 import Helpfulness from '../helpfulness/Helpfulness.js';
 import './Answer.css';
+import apiController from '../../../apiController';
 
 var Answer = (props) => {
+
+  var answerId = props.answer.answer_id;
 
 
   var name = props.answer.answerer_name;
@@ -26,8 +29,10 @@ var Answer = (props) => {
   var monthName = months[date.getMonth()];
   var formatDate = `${monthName} ${day}, ${year}`;
 
-  var handleReport = () => {
-    console.log('Reported!'); //add functionality
+  var handleReport = (e) => {
+    e.preventDefault();
+    apiController.reportAnswer(answerId);
+
   }
 
 
@@ -43,9 +48,9 @@ var Answer = (props) => {
       </span>
 
         <div> {formatDate} </div>
-        <div className = 'help'><Helpfulness helpfulness = {props.answer.helpfulness}/></div>
+        <div className = 'help'><Helpfulness helpfulness = {props.answer.helpfulness} subject = 'A' answerId = {answerId}/></div>
         <div className = 'report'>
-          <a href = '#' onClick = 'handleReport();return false;'>Report</a>
+          <a href = '#' onClick = {handleReport}>Report</a>
           </div>
       </div>
 

@@ -37,7 +37,7 @@ var QuestionForm = (props) => {
 
   return (
     <form onSubmit = {handleSubmit} autoComplete="off">
-      <div class = 'form-container'>
+      <div className = 'form-container'>
        <TextField required id="standard-required" label="Add your question" placeholder = 'Why did you like the product or not?' fullWidth value={question} onChange={e => setQuestion(e.target.value)}/> <br />
 
       <TextField required id="standard-basic" label="What is your nickname*" placeholder = 'Example: jackson11!' fullWidth value={nickname} onChange={e => setNickname(e.target.value)}/> <br />

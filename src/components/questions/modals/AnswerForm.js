@@ -11,15 +11,6 @@ var AnswerForm = (props) => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
 
-  // var postQuestion = (params) => {
-  //   return axios.post('/qa/questions', params)
-  //   .then((response) => {
-  //     console.log(response);
-  //   })
-  //   .catch((err) => {
-  //     console.error('Oh noes ', err);
-  //   })
-  // }
   var questionId = props.questionId;
 
   var postAnswer = (qId, params) => {
@@ -48,7 +39,7 @@ var AnswerForm = (props) => {
 
   return (
     <form onSubmit = {handleSubmit} autoComplete="off">
-      <div class = 'form-container'>
+      <div className = 'form-container'>
        <TextField required id="standard-required" label="Your Answer" fullWidth value={answer} onChange={e => setAnswer(e.target.value)}/> <br />
 
       <TextField required id="standard-basic" label="What is your nickname" placeholder = 'Example: jackson11!' helperText = 'For privacy reasons, do not use your full name or email address' fullWidth value={nickname} onChange={e => setNickname(e.target.value)}/> <br />
