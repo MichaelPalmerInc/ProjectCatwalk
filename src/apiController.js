@@ -88,14 +88,9 @@ let apiController = {
       });
   },
   markHelpful: (reviewId) => {
-    return axios
-      .put(`/reviews/${reviewId}/helpful`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.error('Oh noes ', err);
-      });
+    return axios.put(`/reviews/${reviewId}/helpful`).catch((err) => {
+      console.error('Oh noes ', err);
+    });
   },
   reportReview: (reviewId) => {
     return axios

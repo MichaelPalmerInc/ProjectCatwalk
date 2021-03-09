@@ -92,6 +92,13 @@ const Review = (props) => {
       props.refresh();
     });
   };
+
+  const report = (event) => {
+    event.preventDefault();
+    apiController.reportReview(props.review_id).then((res) => {
+      if (res.status === 204) props.refresh();
+    });
+  };
   return (
     <div className={`${props.className ? props.className : ''} ${classes.root}`}>
       <Rating className={classes.rating} value={props.rating} precision={0.25} readOnly={true} color="black" />
@@ -118,7 +125,10 @@ const Review = (props) => {
             </a>
           </Fragment>
         )}
-        ({props.helpfulness}) | <a href="#">Report</a>
+        ({props.helpfulness}) |{' '}
+        <a href="#" onClick={report}>
+          Report
+        </a>
       </div>
     </div>
   );
