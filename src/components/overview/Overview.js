@@ -1,8 +1,6 @@
 import React from 'react'
-import axios from 'axios';
-import ProductImages from './ProductImages/ProductImages.js';
 import ProductInfo from './ProductInfo/ProductInfo.js';
-import AddToCart from './AddToCart/AddToCart.js'
+import ProductDescription from './ProductDescription/ProductDescription.js'
 import { Grid } from '@material-ui/core';
 
 
@@ -12,17 +10,17 @@ const Overview = ()  => {
     <div>
       <Grid container spacing = {1}>
         <Grid item xs = {6}>
-      <div style={{width: "85%"}}>
+      {/* <div style={{width: "85%"}}>
         <ProductImages/>
-      </div>
+      </div> */}
       </Grid>
       <Grid item xs = {6}>
         <div style={{width: "45%"}}>
           <ProductInfo/>
         </div>
-
       </Grid>
       </Grid>
+      <ProductDescription/>
     </div>
   )
 }
