@@ -12,10 +12,10 @@ var QuestionList = () => {
   const [qCount, setQCount] = useState(4);
 
   var productId = 21113;
-  var params = {productId: productId, pages: 1, count: 25}
+  var params = {pages: 1, count: 5}
 
-  var getQuestions = (params) => {
-    apiController.getQuestions(params)
+  var getQuestions = () => {
+    apiController.getQuestions(productId, params)
     .then((response) => {
       setQuestions(response.data.results);
     })

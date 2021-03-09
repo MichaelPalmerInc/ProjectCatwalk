@@ -35,25 +35,26 @@ var Answer = (props) => {
 
   }
 
-
   return (
     <div className = 'answer_container'>
       <div className = 'answer_text'>{props.answer.body}</div>
       <div className = 'username_container'>
+        by
 
-      by <span className = {name === 'Seller'
-        ? 'seller'
-        : 'username'}>
-        {` ${name}`} |
-      </span>
+        <span className = {name === 'Seller'
+          ? 'seller'
+          : 'username'}>
+          {` ${name}`} |
+        </span>
 
         <div> {formatDate} </div>
-        <div className = 'help'><Helpfulness helpfulness = {props.answer.helpfulness} subject = 'A' answerId = {answerId}/></div>
+        <div className = 'help'>
+          <Helpfulness helpfulness = {props.answer.helpfulness} subject = 'A' answerId = {answerId}/>
+        </div>
         <div className = 'report'>
           <a href = '#' onClick = {handleReport}>Report</a>
-          </div>
+        </div>
       </div>
-
     </div>
   )
 };
