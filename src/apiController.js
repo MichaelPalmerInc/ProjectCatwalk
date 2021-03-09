@@ -97,11 +97,15 @@ let apiController = {
       console.error('Oh noes ', err);
     });
   },
+
+
   //Questions and Answers API calls
-  getQuestions: (productId, { pages = 1, count = 5 } = {}) => {
-    let params = { page: pages, count: count, product_id: productId };
-    return axios
-      .get('/qa/questions', { params })
+  //according to the docs the server expects one object with product_id, page, count inside as a parameter
+  getQuestions: ({ productId = 21111, page = 1, count = 5 }) => {
+    var product_id = productId;
+    let params = { product_id, page, count };
+
+    return axios.get('/qa/questions', { params })
       .then((data) => {
         return data;
       })
@@ -109,11 +113,11 @@ let apiController = {
         console.error('Oh noes ', err);
       });
   },
-  getAnswers: (questionId, { pages = 1, count = 5 } = {}) => {
+  getAnswers: (questionId, { pages = 1, count = 5 }) => {
     let params = { page: pages, count: count };
 
     return axios
-      .get(`/qa/questions/${questionId}/{answers`, { params })
+      .get(`/qa/questions/${questionId}/answers`, { params })
       .then((data) => {
         return data;
       })
@@ -121,6 +125,7 @@ let apiController = {
         console.error('Oh noes ', err);
       });
   },
+
   //handling this in the same way as the reviews POST. Take in an object as a param so we handle all of the gathering in the jsx file.
   postQuestion: (postVal) => {
     return axios
