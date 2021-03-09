@@ -130,9 +130,6 @@ let apiController = {
   postQuestion: (postVal) => {
     return axios
       .post('/qa/questions', postVal)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -140,9 +137,6 @@ let apiController = {
   postAnswer: (questionId, postVal) => {
     return axios
       .post(`/qa/questions/${questionId}/answers`, postVal)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -150,9 +144,6 @@ let apiController = {
   markHelpfulQuestion: (questionId) => {
     return axios
       .put(`/qa/questions/${questionId}/helpful`)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -160,9 +151,6 @@ let apiController = {
   reportQuestion: (questionId) => {
     return axios
       .put(`/qa/questions/${questionId}/report`)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -170,9 +158,6 @@ let apiController = {
   markHelpfulAnswer: (answerId) => {
     return axios
       .put(`/qa/answers/${answerId}/helpful`)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -180,9 +165,6 @@ let apiController = {
   reportAnswer: (answerId) => {
     return axios
       .put(`/qa/answers/${answerId}/report`)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
