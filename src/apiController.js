@@ -93,14 +93,9 @@ let apiController = {
     });
   },
   reportReview: (reviewId) => {
-    return axios
-      .put(`/reviews/${reviewId}/report`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.error('Oh noes ', err);
-      });
+    return axios.put(`/reviews/${reviewId}/report`).catch((err) => {
+      console.error('Oh noes ', err);
+    });
   },
   //Questions and Answers API calls
   getQuestions: (productId, { pages = 1, count = 5 } = {}) => {
