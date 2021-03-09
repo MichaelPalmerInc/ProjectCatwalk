@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import apiController from '../../apiController';
@@ -29,6 +29,76 @@ const useStyles = makeStyles({
   },
 });
 
+const ratingCount = (ratingObj) => {
+  let total = 0;
+  for (let rating in ratingObj) {
+    total += parseInt(ratingObj[rating]);
+  }
+  return total;
+};
+
+const Reviews = (props) => {
+  const [reviews, changeReviews] = useState([]);
+  const [nextReviewsPage, changeReviewsPage] = useState(1);
+  const [reviewsLoading, changeReviewsLoading] = useState(true);
+  const [reviewMetaData, changeReviewMetaData] = useState(exampleMetaData);
+  const [metaLoading, changeMetaLoading] = useState(true);
+  const [sort, changeSort] = useState('relevant');
+  const productId = props.productId || exampleProductId;
+  const classes = useStyles(props);
+
+  const fetchCurrentReviews = () => {
+    changeReviewsLoading(true);
+    apiController.getReviews(productId, { count: 2 * (nextReviewsPage - 1), sort: sort }).then((results) => {
+      changeReviews(results.data.results);
+      changeReviewsLoading(false);
+    });
+  };
+
+  const fetchMoreReviews = () => {
+    changeReviewsLoading(true);
+    apiController.getReviews(productId, { count: 2, sort: sort, pages: nextReviewsPage }).then((results) => {
+      changeReviews(reviews.concat(results.data.results));
+      changeReviewsPage(nextReviewsPage + 1);
+      changeReviewsLoading(false);
+    });
+  };
+
+  const fetchMetadata = () => {
+    changeMetaLoading(true);
+    apiController.getReviewMetaData(productId).then((results) => {
+      const total = ratingCount(results.data.ratings);
+      results.data.total = total;
+      changeReviewMetaData(results.data);
+      changeMetaLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    changeReviewsPage(1);
+    changeReviews([]);
+    changeReviewMetaData(exampleMetaData);
+    fetchMoreReviews();
+    fetchMetadata();
+  }, [productId]);
+
+  return (
+    <div className={classes.root}>
+      <h6 className={classes.title}>Ratings & Reviews</h6>
+      <ReviewsOverview className={classes.left} data={reviewMetaData} loading={metaLoading} />
+      <ReviewsList
+        refresh={fetchCurrentReviews}
+        className={classes.right}
+        data={reviews}
+        loadMore={reviews.length < (nextReviewsPage - 1) * 2 ? null : fetchMoreReviews}
+        loading={reviewsLoading}
+      />
+    </div>
+  );
+};
+
+export default Reviews;
+
 export const characteristicValues = {
   overview: {
     Size: ['Too small', 'Perfect', 'Too large'],
@@ -47,26 +117,32 @@ export const characteristicValues = {
     Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly loose', 'Runs loose'],
   },
 };
-/* Render */
 
 const exampleProductId = 21114;
 
-const Reviews = (props) => {
-  const [reviews, changeReviews] = useState({ empty: true });
-  const [reviewMetaData, changeReviewMetaData] = useState({ empty: true });
-  useEffect(() => {
-    const productId = props.productId || exampleProductId;
-    apiController.getReviews(productId).then((results) => changeReviews(results.data.results));
-    apiController.getReviewMetaData(productId).then((results) => changeReviewMetaData(results.data));
-  }, [props.productId]);
-  const classes = useStyles(props);
-  return (
-    <div className={classes.root}>
-      <h6 className={classes.title}>Ratings & Reviews</h6>
-      {!reviewMetaData.empty ? <ReviewsOverview className={classes.left} data={reviewMetaData} /> : ''}
-      {!reviews.empty ? <ReviewsList className={classes.right} data={reviews} /> : ''}
-    </div>
-  );
+const exampleMetaData = {
+  product_id: exampleProductId,
+  ratings: {
+    2: '2',
+    4: '2',
+    5: '5',
+  },
+  recommended: {
+    false: '2',
+    true: '7',
+  },
+  characteristics: {
+    Fit: {
+      value: '3.1111111111',
+    },
+    Length: {
+      value: '3.111111111111111',
+    },
+    Comfort: {
+      value: '4',
+    },
+    Quality: {
+      value: '3.2',
+    },
+  },
 };
-
-export default Reviews;

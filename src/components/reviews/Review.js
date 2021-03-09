@@ -1,6 +1,8 @@
+import { Fragment, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import PhotoList from '../shared/PhotoList';
 import Rating from '../shared/Rating';
+import apiController from '../../apiController';
 
 const useStyles = makeStyles({
   root: {
@@ -80,6 +82,16 @@ const dateString = (dateStringFromAPI) => {
 const Review = (props) => {
   const classes = useStyles(props);
   const title = wordBreak(props.summary);
+  const [helpful, setHelpful] = useState(false);
+
+  const markHelpful = (event) => {
+    event.preventDefault();
+    apiController.markHelpful(props.review_id).then((res) => {
+      console.log(res);
+      if (res.status === 204) setHelpful(true);
+      props.refresh();
+    });
+  };
   return (
     <div className={`${props.className ? props.className : ''} ${classes.root}`}>
       <Rating className={classes.rating} value={props.rating} precision={0.25} readOnly={true} color="black" />
@@ -95,7 +107,18 @@ const Review = (props) => {
         {props.response ? <div className={classes.response}>{props.response}</div> : ''}
       </div>
       <div className={classes.helpful}>
-        Helpful? <a href="#">Yes</a> ({props.helpfulness}) | <a href="#">Report</a>
+        Helpful
+        {helpful ? (
+          ''
+        ) : (
+          <Fragment>
+            ?{' '}
+            <a href="#" onClick={markHelpful}>
+              Yes
+            </a>
+          </Fragment>
+        )}
+        ({props.helpfulness}) | <a href="#">Report</a>
       </div>
     </div>
   );

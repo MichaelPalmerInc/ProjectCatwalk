@@ -18,12 +18,19 @@ const useStyles = makeStyles({
     'padding-right': '1rem',
     'box-sizing': 'border-box',
   },
+  buttons: {
+    'margin-top': '1.5rem',
+    display: 'flex',
+    '& button': {
+      'margin-right': '0.75rem',
+    },
+  },
 });
 
 const ReviewsList = (props) => {
   const classes = useStyles(props);
   return (
-    <div className={`${props.className} ${classes.root}`}>
+    <div className={`${props.className}`}>
       <div className={classes.count}>
         248 Reviews, sorted by{' '}
         <select className={classes.sortDropdown}>
@@ -32,8 +39,12 @@ const ReviewsList = (props) => {
       </div>
       <div className={classes.reviewList}>
         {props.data.map((review) => (
-          <Review {...review} />
+          <Review refresh={props.refresh} {...review} />
         ))}
+      </div>
+      <div className={classes.buttons}>
+        {props.loadMore ? <button onClick={props.loadMore}>More Reviews</button> : ''}
+        <button>Add Review</button>
       </div>
     </div>
   );

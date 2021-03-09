@@ -31,7 +31,6 @@ const useStyles = makeStyles({
   breakdownContainer: {
     'margin-bottom': '2rem',
   },
-  productBreakdownContainer: {},
 });
 
 const averageRating = (ratingObj) => {
@@ -44,20 +43,12 @@ const averageRating = (ratingObj) => {
   return Math.round((total * 10) / quantity) / 10;
 };
 
-const ratingCount = (ratingObj) => {
-  let total = 0;
-  for (let rating in ratingObj) {
-    total += parseInt(ratingObj[rating]);
-  }
-  return total;
-};
-
 /* Render */
 
 const ReviewsOverview = (props) => {
   const classes = useStyles(props);
   const rating = averageRating(props.data.ratings);
-  const total = ratingCount(props.data.ratings);
+  const total = props.data.total;
   const characteristicBreakdowns = [];
   for (let characteristic in props.data.characteristics) {
     characteristicBreakdowns.push(
