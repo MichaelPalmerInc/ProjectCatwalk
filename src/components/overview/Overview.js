@@ -1,21 +1,29 @@
 import React from 'react'
 import axios from 'axios';
+import ProductImages from './ProductImages/ProductImages.js';
+import ProductInfo from './ProductInfo/ProductInfo.js';
+import AddToCart from './AddToCart/AddToCart.js'
+import { Grid } from '@material-ui/core';
 
-axios.defaults.baseURL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hratx/';
-axios.defaults.headers.common['Authorization'] = '1ecd87d2cf6d1d435550d70ed33fb55886382412';
-// const getProductsFromServer = () => {
-//   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hratx/products', {authorization: '1ecd87d2cf6d1d435550d70ed33fb55886382412'})
-//   .then(data => {
-//     console.log(data);
-//   })
-//   .catch(err => {
-//     console.log('ERROR ', err);
-//   });
-// }
+
+
 const Overview = ()  => {
   return (
+    <div>
+      <Grid container spacing = {1}>
+        <Grid item xs = {6}>
+      <div style={{width: "85%"}}>
+        <ProductImages/>
+      </div>
+      </Grid>
+      <Grid item xs = {6}>
+        <div style={{width: "45%"}}>
+          <ProductInfo/>
+        </div>
 
-    <div>Hey</div>
+      </Grid>
+      </Grid>
+    </div>
   )
 }
 
