@@ -1,31 +1,24 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import AddToCart from '../AddToCart/AddToCart.js'
 import StyleSelector from '../StyleSelector/StyleSelector.js'
-import apiController from '../../../apiController'
 
-const ProductInfo = (prop) => {
-  const getData = () => {
-    apiController.getProduct(21112)
-    .then(data => {
-      const productData = data.data;
-      getProducts(productData);
-    })
-    .catch(err => {
-      console.error(err);
-    })
-  }
+const ProductInfo = ({products}) => {
+
+  const [price, setPrice] = useState('');
   useEffect(() => {
-    getData();
-}, []);
-
-const [products, getProducts] = useState(false);
+    setPrice(products.default_price);
+}, products.default_price);
+  const handleTrigger = (newPrice) => {
+    setPrice(newPrice);
+  }
   return (
     <div>
+      {console.log(products.default_price)}
       <div> Reviews component Shared</div>
       <h3>{products ? products.category:''}</h3>
       <h1>{products ? products.name:''}</h1>
-      <p>{products ? products.default_price:''}</p>
-      <StyleSelector/>
+      <p>{products ? price:''}</p>
+      <StyleSelector products = {products} onChange = {handleTrigger}/>
       <AddToCart/>
     </div>
   )
