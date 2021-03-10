@@ -15,10 +15,15 @@ const useStyles = makeStyles({
       "content content"
       "helpful null"
     `,
+    height: '20rem',
+    overflow: 'hidden',
     padding: '1rem 0',
     'margin-top': '1rem',
     'font-size': '.9rem',
     'border-bottom': '1px solid gray',
+    '&.hasPhotos': {
+      height: '31.25rem',
+    },
   },
   rating: {
     'grid-area': 'rating',
@@ -100,7 +105,7 @@ const Review = (props) => {
     });
   };
   return (
-    <div className={`${props.className ? props.className : ''} ${classes.root}`}>
+    <div className={`${props.className} ${props.photos.length ? 'hasPhotos' : ''} ${classes.root}`}>
       <Rating className={classes.rating} value={props.rating} precision={0.25} readOnly={true} color="black" />
       <div className={classes.userinfo}>
         {props.reviewer_name}, {dateString(props.date)}

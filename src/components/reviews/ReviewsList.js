@@ -18,6 +18,10 @@ const useStyles = makeStyles({
     'padding-right': '1rem',
     'box-sizing': 'border-box',
   },
+  reviewList: {
+    'max-height': '75vh',
+    'overflow-y': 'auto',
+  },
   buttons: {
     'margin-top': '1.5rem',
     display: 'flex',

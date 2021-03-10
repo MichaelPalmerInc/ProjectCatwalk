@@ -10,6 +10,7 @@ import ReviewsList from './ReviewsList';
 const useStyles = makeStyles({
   root: {
     display: 'grid',
+    'max-height': '100vh',
     'grid-template-columns': '19.75rem auto',
     'grid-template-rows': 'auto',
     'grid-template-areas': `
