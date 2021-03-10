@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     background: '#000',
     padding: '3rem',
     display: 'flex',
-    'justify-content': 'center',
+    justifyContent: 'center',
     'align-content': 'center',
     outline: 0,
   },
