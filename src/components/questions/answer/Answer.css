@@ -15,12 +15,22 @@
   text-align: left;
 }
 
-.username {
-
+.seller {
+  font-weight: bold;
+  margin-right: 5px;
+  margin-left: 5px;
 }
+
+ .username {
+   font-weight: normal;
+   margin-right: 5px;
+   margin-left: 5px;
+}
+
 .help {
-
+  margin-right: 5px;
+  margin-left: 5px;
 }
-.report {
+/* .report {
 
-}
+} */

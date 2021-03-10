@@ -1,6 +1,5 @@
 let axios = require('axios');
 let config = require('./config/config.js');
-
 axios.defaults.baseURL = config.server;
 axios.defaults.headers.common['Authorization'] = config.token;
 
@@ -97,6 +96,8 @@ let apiController = {
       console.error('Oh noes ', err);
     });
   },
+
+
   //Questions and Answers API calls
   getQuestions: (productId, { pages = 1, count = 5 } = {}) => {
     let params = { page: pages, count: count, product_id: productId };
@@ -113,7 +114,7 @@ let apiController = {
     let params = { page: pages, count: count };
 
     return axios
-      .get(`/qa/questions/${questionId}/{answers`, { params })
+      .get(`/qa/questions/${questionId}/answers`, { params })
       .then((data) => {
         return data;
       })
@@ -121,13 +122,11 @@ let apiController = {
         console.error('Oh noes ', err);
       });
   },
+
   //handling this in the same way as the reviews POST. Take in an object as a param so we handle all of the gathering in the jsx file.
   postQuestion: (postVal) => {
     return axios
       .post('/qa/questions', postVal)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -135,9 +134,6 @@ let apiController = {
   postAnswer: (questionId, postVal) => {
     return axios
       .post(`/qa/questions/${questionId}/answers`, postVal)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -145,9 +141,6 @@ let apiController = {
   markHelpfulQuestion: (questionId) => {
     return axios
       .put(`/qa/questions/${questionId}/helpful`)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -155,9 +148,6 @@ let apiController = {
   reportQuestion: (questionId) => {
     return axios
       .put(`/qa/questions/${questionId}/report`)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -165,9 +155,6 @@ let apiController = {
   markHelpfulAnswer: (answerId) => {
     return axios
       .put(`/qa/answers/${answerId}/helpful`)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
@@ -175,9 +162,6 @@ let apiController = {
   reportAnswer: (answerId) => {
     return axios
       .put(`/qa/answers/${answerId}/report`)
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
         console.error('Oh noes ', err);
       });
