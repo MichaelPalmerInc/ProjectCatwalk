@@ -1,6 +1,5 @@
-.questions_widget_container {
+.form-container {
   display: flex;
   flex-direction: column;
-
+  margin-bottom: 30px;
 }
-
