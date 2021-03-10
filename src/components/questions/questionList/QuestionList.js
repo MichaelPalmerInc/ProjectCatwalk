@@ -11,8 +11,8 @@ var QuestionList = () => {
   const [questions, setQuestions] = useState([]);
   const [qCount, setQCount] = useState(4);
 
-  var productId = 21113;
-  var params = {pages: 1, count: 5}
+  var productId = 21112;
+  var params = {pages: 1, count: 500}
 
   var getQuestions = () => {
     apiController.getQuestions(productId, params)
@@ -21,9 +21,9 @@ var QuestionList = () => {
     })
   }
 
-  useEffect(() => {
-    getQuestions(params)
-  }, []);
+  // useEffect(() => {
+  //   getQuestions(params)
+  // }, []);
   useEffect(() => {
     getQuestions(params)
   }, [qCount]);
