@@ -1,23 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import Questions from '../questions/Questions.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      {/* <header className="App-header"> */}
+        {/* <img src={logo} className="App-logo" alt="logo" />
         <p>
           Team Tigers rule
-        </p>
-        <a
+        </p> */}
+        <Questions />
+
+        {/* <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
-      </header>
+        </a> */}
+      {/* </header> */}
     </div>
   );
 }
