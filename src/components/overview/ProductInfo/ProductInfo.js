@@ -1,39 +1,31 @@
-import React from 'react';
-import { Avatar } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
+import React, {useState,useEffect} from 'react';
 import AddToCart from '../AddToCart/AddToCart.js'
+import StyleSelector from '../StyleSelector/StyleSelector.js'
+import apiController from '../../../apiController'
 
+const ProductInfo = (prop) => {
+  const getData = () => {
+    apiController.getProduct(21112)
+    .then(data => {
+      const productData = data.data;
+      getProducts(productData);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
+  useEffect(() => {
+    getData();
+}, []);
 
-const ProductInfo = () => {
+const [products, getProducts] = useState(false);
   return (
     <div>
       <div> Reviews component Shared</div>
-      <h3>Category</h3>
-      <h1>Product Name</h1>
-      <p>Price</p>
-      <p><em>Style ></em> Selected Style</p>
-      <div>
-      <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
-        <Grid item xs = {3}>
-          <Avatar>A</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>B</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>C</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>D</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>E</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>F</Avatar>
-        </Grid>
-      </Grid>
-      </div>
+      <h3>{products ? products.category:''}</h3>
+      <h1>{products ? products.name:''}</h1>
+      <p>{products ? products.default_price:''}</p>
+      <StyleSelector/>
       <AddToCart/>
     </div>
   )
