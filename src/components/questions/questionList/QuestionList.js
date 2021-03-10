@@ -21,9 +21,7 @@ var QuestionList = () => {
     })
   }
 
-  // useEffect(() => {
-  //   getQuestions(params)
-  // }, []);
+
   useEffect(() => {
     getQuestions(params)
   }, [qCount]);

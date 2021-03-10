@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-//import { TextField } from '@material-ui/core';
 import SearchBar from 'material-ui-search-bar';
-//import Button from '@material-ui/core/Button';
+import './Search.css'
 
 var Search = (props) => {
   const [inputQ, setInputQ] = useState('');
 
-var handleSearch = (input) => {
-  console.log('searching for:' + input)
-}
+  var handleSearch = (input) => {
+    console.log('searching for:' + input)
+  }
   return (
-    <form>
+    <div className = 'search_form'>
       <SearchBar
         onChange={(value) => setInputQ(value)}
         onRequestSearch={() => handleSearch(inputQ)}
@@ -18,11 +17,7 @@ var handleSearch = (input) => {
           minWidth: 500
         }}
       />
-
-      {/* <Button type = 'submit' variant="contained" color="primary" >
-      Submit answer
-    </Button> */}
-    </form>
+    </div>
   )
 };
 

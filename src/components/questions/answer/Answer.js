@@ -10,29 +10,11 @@ var Answer = (props) => {
 
   var name = props.answer.answerer_name;
   var date = new Date(props.answer.date);
-  var year = date.getFullYear();
-  var day = date.getDate();
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-  var monthName = months[date.getMonth()];
-  var formatDate = `${monthName} ${day}, ${year}`;
+  var formatDate = date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
 
   var handleReport = (e) => {
     e.preventDefault();
     apiController.reportAnswer(answerId);
-
   }
 
   return (

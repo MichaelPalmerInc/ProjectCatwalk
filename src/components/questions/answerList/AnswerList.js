@@ -37,9 +37,9 @@ var AnswerList = (props) => {
   var button;
   if (answers.length > 2) {
     if (answers.length <= aCount) {
-      button = <button className = 'load_answers' onClick={() => setACount(2)}>Hide answers</button>
+      button = <button className = 'list_btn' onClick={() => setACount(2)}>Hide answers</button>
     } else {
-      button = <button className = 'load_answers' onClick={() => setACount(aCount + 2)}>Load more answers</button>
+      button = <button className = 'list_btn' onClick={() => setACount(aCount + 2)}>Load more answers</button>
     }
   } else {
     button = null;

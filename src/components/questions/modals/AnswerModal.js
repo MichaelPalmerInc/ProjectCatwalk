@@ -1,11 +1,9 @@
 import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-
-
+import Button from '@material-ui/core/Button';
 import AnswerForm from './AnswerForm.js';
 
 const useStyles = makeStyles(theme => ({
@@ -13,15 +11,21 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(4, 10, 6),
-        // padding: theme.spacing(2, 4, 3),
     },
+    mystyle: {
+        backgroundColor: "white",
+        padding: "0px",
+        fontSize: "small",
+        border: 'none',
+        cursor: 'pointer',
+        textTransform: 'capitalize'
+      }
 }));
 
 var AnswerModal = (props) => {
@@ -36,20 +40,13 @@ var AnswerModal = (props) => {
         setOpen(false);
     };
 
-    const mystyle = {
-      backgroundColor: "white",
-      padding: "0px",
-      fontSize: "small",
-      border: 'none',
-      cursor: 'pointer',
-    }
 
     return (
         <div>
 
-            <button style = {mystyle} onClick={handleOpen}>
+            <Button className={classes.mystyle} onClick={handleOpen}>
                 Add Answer
-            </button>
+            </Button>
 
             <Modal
                 aria-labelledby="transition-modal-title"

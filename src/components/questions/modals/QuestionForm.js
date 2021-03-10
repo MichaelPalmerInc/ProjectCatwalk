@@ -26,23 +26,29 @@ var QuestionForm = (props) => {
   return (
     <form onSubmit = {handleSubmit} autoComplete="off">
       <div className = 'form-container'>
-       <TextField required id="standard-required"
+       <TextField
+        required fullWidth
+        id="standard-required"
         label="Add your question"
         placeholder = 'Why did you like the product or not?'
-        fullWidth value={question}
+        value={question}
         onChange={e => setQuestion(e.target.value)}
        /> <br />
 
-      <TextField required id="standard-basic"
+      <TextField
+        required fullWidth
+        id="standard-basic"
         label="What is your nickname*"
         placeholder = 'Example: jackson11!'
-        fullWidth value={nickname}
+        value={nickname}
         onChange={e => setNickname(e.target.value)}
       /> <br />
 
-      <TextField required id="standard-basic"
+      <TextField
+        required fullWidth
+        id="standard-basic"
         label="What is your email*"
-        fullWidth value={email}
+        value={email}
         onChange={e => setEmail(e.target.value)}
         helperText = 'For authentication reasons, you will not be emailed'
       />

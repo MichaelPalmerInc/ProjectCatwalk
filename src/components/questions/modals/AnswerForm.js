@@ -29,28 +29,31 @@ var AnswerForm = (props) => {
     <form onSubmit = {handleSubmit} autoComplete="off">
       <div className = 'form-container'>
        <TextField
-        required id="standard-required"
+        required fullWidth
+        id="standard-required"
         label="Your Answer"
-        fullWidth value={answer}
+        value={answer}
         onChange={e => setAnswer(e.target.value)}
        /> <br />
 
       <TextField
-        required id="standard-basic"
+        required fullWidth
+        id="standard-basic"
         label="What is your nickname"
         placeholder = 'Example: jackson11!'
         helperText = 'For privacy reasons, do not use your full name or email address'
-        fullWidth value={nickname}
+        value={nickname}
         onChange={e => setNickname(e.target.value)}
       /> <br />
 
       <TextField
-        required id="standard-basic"
+        required fullWidth
+        id="standard-basic"
         label="What is your email"
         placeholder = 'Example: jack@email.com'
-        fullWidth value={email}
-        onChange={e => setEmail(e.target.value)}
         helperText = 'For authentication reasons, you will not be emailed'
+        value={email}
+        onChange={e => setEmail(e.target.value)}
       />
 
     </div>

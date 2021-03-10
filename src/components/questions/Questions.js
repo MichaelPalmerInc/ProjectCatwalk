@@ -6,9 +6,7 @@ import './Questions.css';
 var Questions = () => {
   return (
     <div className = 'questions_widget_container'>
-      <div className = 'search_form'>
       <Search />
-      </div>
       <QuestionList />
     </div>
   )
