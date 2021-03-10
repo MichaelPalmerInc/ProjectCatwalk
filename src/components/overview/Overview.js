@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import ProductInfo from './ProductInfo/ProductInfo.js';
-import ProductDescription from './ProductDescription/ProductDescription.js';
+// import ProductDescription from './ProductDescription/ProductDescription.js';
 import { Grid } from '@material-ui/core';
 import apiController from '../../apiController';
 
@@ -37,7 +37,7 @@ const [products, setProducts] = useState(false);
         </div>
       </Grid>
       </Grid>
-      <ProductDescription/>
+      {/* <ProductDescription/> */}
     </div>
   )
 }
