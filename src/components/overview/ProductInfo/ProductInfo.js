@@ -1,40 +1,27 @@
-import React from 'react';
-import { Avatar } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
+import React, {useState, useEffect} from 'react';
 import AddToCart from '../AddToCart/AddToCart.js'
+import StyleSelector from '../StyleSelector/StyleSelector.js'
 
+const ProductInfo = ({products}) => {
 
-const ProductInfo = () => {
+  const [price, setPrice] = useState('');
+  const [skus, setSkus] = useState({});
+  useEffect(() => {
+    setPrice(products.default_price);
+   // setSkus(products.results[0].skus)
+}, products.default_price);
+  const handleTrigger = (newPrice, skus) => {
+    setPrice(newPrice);
+    setSkus(skus);
+  }
   return (
     <div>
       <div> Reviews component Shared</div>
-      <h3>Category</h3>
-      <h1>Product Name</h1>
-      <p>Price</p>
-      <p><em>Style ></em> Selected Style</p>
-      <div>
-      <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
-        <Grid item xs = {3}>
-          <Avatar>A</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>B</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>C</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>D</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>E</Avatar>
-        </Grid>
-        <Grid item xs = {3}>
-          <Avatar>F</Avatar>
-        </Grid>
-      </Grid>
-      </div>
-      <AddToCart/>
+      <h3>{products ? products.category:''}</h3>
+      <h1>{products ? products.name:''}</h1>
+      <p>{products ? price:''}</p>
+      <StyleSelector products = {products} onChange = {handleTrigger}/>
+      <AddToCart skus = {skus}/>
     </div>
   )
 }

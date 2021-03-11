@@ -1,3 +1,7 @@
 .help {
   font-size: small;
 }
+
+.add_link {
+  cursor: default;
+}

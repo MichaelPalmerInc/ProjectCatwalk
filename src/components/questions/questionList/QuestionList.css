@@ -1,0 +1,9 @@
+.q_list_btns {
+  display: flex;
+  margin-left: 15px;
+}
+
+.search {
+  max-width: 500px;
+  margin-bottom: 20px;
+}

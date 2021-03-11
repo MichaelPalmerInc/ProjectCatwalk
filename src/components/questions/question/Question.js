@@ -1,26 +1,33 @@
-import React from 'react';
+import React , { useState } from 'react';
 import AnswerList from '../answerList/AnswerList.js';
 import './Question.css';
 import Helpfulness from '../helpfulness/Helpfulness.js';
+import AnswerModal from '../modals/AnswerModal.js';
 
-var Question = () => {
+
+var Question = (props) => {
+  var id = props.question.question_id;
+  var helpfulness = props.question.question_helpfulness;
+
   return (
-    <div class = 'question_container'>
+    <div className = 'question_container'>
+      <div className = 'question_line'>
 
-      <div class = 'question_line'>
-
-        <div class ='question'>
-          <div class = 'q'>Q:</div>
-          <div class = 'question_text'>Where am I??? </div>
+        <div className ='question'>
+          <div className = 'q'>Q:</div>
+          <div className = 'question_text'>{props.question.question_body} </div>
         </div>
-      <div class = 'help_add'>
-        <Helpfulness />
-        <a href = '#' class = 'add_answer_link'>Add answer</a>
-      </div>
+
+        <div className = 'help_add'>
+          <Helpfulness
+          helpfulness = {helpfulness}
+          subject = 'Q'
+          questionId = {id} />
+          <AnswerModal questionId = {id}/>
+        </div>
 
       </div>
-
-      <AnswerList />
+      <AnswerList qId = {props.question.question_id}/>
     </div>
   )
 };
