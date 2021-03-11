@@ -1,15 +1,13 @@
 import React from 'react';
-//import Search from './search/Search.js';
 import QuestionList from './questionList/QuestionList.js';
 import './Questions.css';
 
-var Questions = () => {
+var Questions = ({ productId = 21112 }) => {
   return (
     <div>
-      {/* <Search /> */}
-      <QuestionList />
+      <QuestionList productId={productId}/>
     </div>
-  )
+  );
 };
 
 export default Questions;

@@ -7,26 +7,21 @@ import { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import apiController from '../../../apiController';
 
-
-var QuestionList = () => {
+var QuestionList = ({ productId }) => {
   const [questions, setQuestions] = useState([]);
   const [qCount, setQCount] = useState(4);
   const [currentQuestions, setCurrentQuestions] = useState([]);
 
-  var productId = 21112;
-  var params = {pages: 1, count: 500}
+  var params = { pages: 1, count: 500 };
 
   var getQuestions = () => {
-    apiController.getQuestions(productId, params)
-    .then((response) => {
+    apiController.getQuestions(productId, params).then((response) => {
       setQuestions(response.data.results);
       setCurrentQuestions(response.data.results);
     })
   }
 
-  var filterResultsNote = '';
   var handleInputChange = (input) => {
-    console.log(input);
     var filteredQuestions = questions.filter(question => {
       return question.question_body.toLowerCase().includes(input.toLowerCase());
     })
@@ -35,25 +30,23 @@ var QuestionList = () => {
 
 
   useEffect(() => {
-    getQuestions(params)
+    getQuestions(params);
   }, [qCount]);
 
-
   if (questions.length === 0) {
-    return <Button>Add a question</Button>
+    return <Button>Add a question</Button>;
   }
 
   var loadBtn;
   if (questions.length > 4) {
     if (questions.length <= qCount) {
-      loadBtn = <Button onClick = {() => setQCount(4)}>Hide Questions</Button>
+      loadBtn = <Button onClick={() => setQCount(4)}>Hide Questions</Button>;
     } else {
-      loadBtn = <Button onClick = {() => setQCount(qCount + 2)}>More Answered questions</Button>
+      loadBtn = <Button onClick={() => setQCount(qCount + 2)}>More Answered questions</Button>;
     }
   } else {
     loadBtn = null;
   }
-
 
   return (
     <div>
@@ -65,14 +58,12 @@ var QuestionList = () => {
       }
       )}
 
-      <div className = 'q_list_btns'>
-        <div style = {{marginRight: '30px'}}>
-          {loadBtn}
-        </div>
-        <QuestionModal productId = {productId}/>
+      <div className="q_list_btns">
+        <div style={{ marginRight: '30px' }}>{loadBtn}</div>
+        <QuestionModal productId={productId} />
       </div>
     </div>
-  )
+  );
 };
 
 export default QuestionList;
