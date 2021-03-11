@@ -18,8 +18,8 @@ const AddToCart = ({skus}) => {
   return (
     <div>
     <div>
-      {console.log('the skus')}
-      {console.log(skus)}
+      {/* {console.log('the skus')}
+      {console.log(skus)} */}
     <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
     <Grid item xs = {6}>
       <Button aria-controls="sizes" aria-haspopup="true" onClick={e => setAnchorEl(e.currentTarget)}>
