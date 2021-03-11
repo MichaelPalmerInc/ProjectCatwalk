@@ -1,35 +1,43 @@
+import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Review from './Review';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {},
   count: {
-    'font-weight': 'bold',
-    'font-size': '1.2rem',
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
   },
   sortDropdown: {
     border: 'none',
-    'font-size': 'inherit',
-    'font-weight': 'inherit',
-    'font-family': 'inherit',
-    'border-bottom': '2px solid black',
-    'line-height': 1,
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
+    fontFamily: 'inherit',
+    borderBottom: '2px solid',
+    borderColor: theme.palette.primary.main,
+    lineHeight: 1,
     padding: 0,
-    'padding-right': '1rem',
-    'box-sizing': 'border-box',
-  },
-  reviewList: {
-    'max-height': '75vh',
-    'overflow-y': 'auto',
-  },
-  buttons: {
-    'margin-top': '1.5rem',
-    display: 'flex',
-    '& button': {
-      'margin-right': '0.75rem',
+    paddingRight: '1rem',
+    boxSizing: 'border-box',
+    color: theme.palette.primary.main,
+    '&:focus': {
+      color: theme.palette.primary.contrastText,
+      backgroundColor: theme.palette.primary.main,
+      boxSizing: 'border-box',
     },
   },
-});
+  reviewList: {
+    maxHeight: '75vh',
+    overflowY: 'auto',
+  },
+  buttons: {
+    marginTop: '1.5rem',
+    display: 'flex',
+    '& button': {
+      marginRight: '0.75rem',
+    },
+  },
+}));
 
 const ReviewsList = (props) => {
   const classes = useStyles(props);
@@ -47,8 +55,16 @@ const ReviewsList = (props) => {
         ))}
       </div>
       <div className={classes.buttons}>
-        {props.loadMore ? <button onClick={props.loadMore}>More Reviews</button> : ''}
-        <button>Add Review</button>
+        {props.loadMore ? (
+          <Button variant="text" color="primary" onClick={props.loadMore}>
+            More Reviews
+          </Button>
+        ) : (
+          ''
+        )}
+        <Button variant="contained" color="primary">
+          Add Review
+        </Button>
       </div>
     </div>
   );
