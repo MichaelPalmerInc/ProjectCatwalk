@@ -59,7 +59,6 @@ const ReviewsOverview = (props) => {
       />
     );
   }
-  console.log('Data: ', props.data);
   return (
     <div className={`${classes.root} ${props.className}`}>
       <div className={classes.starRating}>

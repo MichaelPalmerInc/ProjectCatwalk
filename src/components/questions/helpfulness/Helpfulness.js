@@ -14,7 +14,8 @@ var Helpfulness = (props) => {
   ? rateHelp = apiController.markHelpfulQuestion
   : rateHelp = apiController.markHelpfulAnswer
 
-  var handleClick = (id) => {
+  var handleClick = (e, id) => {
+    e.preventDefault();
     if (!rated) {
       rateHelp(id);
       setRated(true);
@@ -26,7 +27,7 @@ var Helpfulness = (props) => {
     <div className = 'help'>
       Helpful?
       <a href ='#'
-      onClick = {() => handleClick(id)}
+      onClick = {(e) => handleClick(e, id)}
       className = 'add_link'>
       Yes
       </a>
