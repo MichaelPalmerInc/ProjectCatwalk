@@ -3,7 +3,7 @@ import ProductInfo from './ProductInfo/ProductInfo.js';
 import ProductCarousel from './ProductCarousel/ProductCarousel.js'
 import ProductImages from './ProductImages/ProductImages.js'
 import AddToCart from './AddToCart/AddToCart.js'
-
+import ProductDescription from './ProductDescription/ProductDescription.js'
 import { Grid } from '@material-ui/core';
 import apiController from '../../apiController';
 
