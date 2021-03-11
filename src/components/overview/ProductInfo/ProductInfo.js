@@ -13,7 +13,7 @@ const ProductInfo = ({products}) => {
   }
   return (
     <div>
-      {console.log(products.default_price)}
+      {console.log(products)}
       <div> Reviews component Shared</div>
       <h3>{products ? products.category:''}</h3>
       <h1>{products ? products.name:''}</h1>

@@ -31,7 +31,7 @@ const [products, setProducts] = useState(false);
       <Grid container spacing = {1}>
         <Grid item xs = {6}>
       <div style={{width: "85%"}}>
-        <ProductImages/>
+        <ProductImages products ={products}/>
 
         <ProductCarousel/>
       </div>
