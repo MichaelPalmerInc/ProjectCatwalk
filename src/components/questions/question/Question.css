@@ -1,7 +1,10 @@
 
 .question_container {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  padding: 5px;
   max-width: 60%;
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 
 .question_line {
