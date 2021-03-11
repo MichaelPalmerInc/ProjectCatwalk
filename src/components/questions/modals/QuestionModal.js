@@ -54,8 +54,8 @@ var QuestionModal = (props) => {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <h2>Ask your question</h2>
-                        <h4>About the {props.product_name}</h4>
+                        <h1 style = {{fontSize: '2em'}}>Ask your question</h1>
+                        <h2 style = {{fontSize: '1.5em'}}>About the product{props.product_name}</h2>
                         <QuestionForm handleClose = {handleClose} productId = {props.productId}/>
                     </div>
                 </Fade>
