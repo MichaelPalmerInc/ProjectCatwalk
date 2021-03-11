@@ -3,13 +3,13 @@ import Search from './search/Search.js';
 import QuestionList from './questionList/QuestionList.js';
 import './Questions.css';
 
-var Questions = () => {
+var Questions = ({ productId = 21112 }) => {
   return (
-    <div className = 'questions_widget_container'>
+    <div className="questions_widget_container">
       <Search />
-      <QuestionList />
+      <QuestionList productId={productId} />
     </div>
-  )
+  );
 };
 
 export default Questions;
