@@ -5,18 +5,10 @@ import './Questions.css';
 
 var Questions = () => {
   return (
-    <div class = 'questions_widget_container'>
-      <div class = 'search_form'>
+    <div className = 'questions_widget_container'>
       <Search />
-      </div>
-
       <QuestionList />
-      <div class = 'q_list_btns'>
-        <button>More Answered Questions</button>
-        <button>Add a question</button>
-      </div>
     </div>
-
   )
 };
 
