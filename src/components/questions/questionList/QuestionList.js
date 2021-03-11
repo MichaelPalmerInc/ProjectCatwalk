@@ -1,5 +1,6 @@
 import React from 'react';
 import Question from '../question/Question.js';
+import Search from '../search/Search.js';
 import QuestionModal from '../modals/QuestionModal.js';
 import './QuestionList.css';
 import { useState, useEffect } from 'react';
@@ -10,6 +11,7 @@ import apiController from '../../../apiController';
 var QuestionList = () => {
   const [questions, setQuestions] = useState([]);
   const [qCount, setQCount] = useState(4);
+  const [currentQuestions, setCurrentQuestions] = useState([]);
 
   var productId = 21112;
   var params = {pages: 1, count: 500}
@@ -18,8 +20,18 @@ var QuestionList = () => {
     apiController.getQuestions(productId, params)
     .then((response) => {
       setQuestions(response.data.results);
+      setCurrentQuestions(response.data.results);
     })
   }
+
+  var filterResultsNote = '';
+  var handleInputChange = (input) => {
+    console.log(input);
+    var filteredQuestions = questions.filter(question => {
+      return question.question_body.toLowerCase().includes(input.toLowerCase());
+    })
+    setCurrentQuestions(filteredQuestions);
+   }
 
 
   useEffect(() => {
@@ -45,7 +57,8 @@ var QuestionList = () => {
 
   return (
     <div>
-      {questions.slice(0, qCount).map((question) => {
+      <Search questions = {questions} handleChange = {handleInputChange}/>
+      {currentQuestions.slice(0, qCount).map((question) => {
         return (
           <Question question = {question} key = {question.question_id} />
         )

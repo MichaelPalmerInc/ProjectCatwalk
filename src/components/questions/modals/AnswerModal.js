@@ -62,8 +62,8 @@ var AnswerModal = (props) => {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <h2>Submit your Answer</h2>
-                        <h4>[Product Name]: [Question Body]</h4>
+                        <h1 style = {{fontSize: '2em'}}>Submit your Answer</h1>
+                        <h2 style = {{fontSize: '1.5em'}}></h2>
                         <AnswerForm handleClose = {handleClose} questionId = {props.questionId}/>
                     </div>
                 </Fade>
