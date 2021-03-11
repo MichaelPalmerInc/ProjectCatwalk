@@ -13,9 +13,9 @@ const ProductCarousel = () => {
 
   return (
     <div>
-       <Carousel verticalMode >
+       {/* <Carousel verticalMode >
         {items.map(item => <div key={item.id}>{item.title}</div>)}
-      </Carousel>
+      </Carousel> */}
     </div>
   )
 }
