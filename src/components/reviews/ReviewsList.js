@@ -53,7 +53,6 @@ const ReviewsList = (props) => {
   };
   return (
     <div className={`${props.className}`}>
-      {console.log(props.data)}
       <div className={classes.count}>
         {props.meta.total} Reviews, sorted by{' '}
         <select className={classes.sortDropdown}>

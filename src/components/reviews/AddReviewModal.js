@@ -83,10 +83,7 @@ const AddReviewModal = (props) => {
       email,
       characteristics: charObj,
     };
-    console.log(JSON.stringify(params, null, 2));
-    apiController.postReview(params).then((res) => {
-      console.log(res);
-    });
+    apiController.postReview(params);
     handleClose();
   };
 
@@ -108,7 +105,6 @@ const AddReviewModal = (props) => {
   };
 
   const validateBody = () => {
-    console.log('brrr');
     setBodyValid(body.length > 50);
   };
 
@@ -122,7 +118,6 @@ const AddReviewModal = (props) => {
               name="new-review-rating"
               value={rating}
               onChange={(e, v) => {
-                console.log(v);
                 setRating(v);
               }}
               precision={1}
