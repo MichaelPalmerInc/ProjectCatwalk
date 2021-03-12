@@ -1,5 +1,7 @@
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
+import AddReviewModal from './AddReviewModal';
 import Review from './Review';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,10 +43,19 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewsList = (props) => {
   const classes = useStyles(props);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const addReview = (event) => {
+    setModalOpen(true);
+  };
+  const closeModal = (event) => {
+    setModalOpen(false);
+  };
   return (
     <div className={`${props.className}`}>
+      {console.log(props.data)}
       <div className={classes.count}>
-        248 Reviews, sorted by{' '}
+        {props.meta.total} Reviews, sorted by{' '}
         <select className={classes.sortDropdown}>
           <option selected>relevance</option>
         </select>
@@ -62,10 +73,16 @@ const ReviewsList = (props) => {
         ) : (
           ''
         )}
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={addReview}>
           Add Review
         </Button>
       </div>
+      <AddReviewModal
+        productId={props.productId}
+        open={modalOpen}
+        onClose={closeModal}
+        characteristics={props.meta.characteristics}
+      />
     </div>
   );
 };
