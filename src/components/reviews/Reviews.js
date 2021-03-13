@@ -50,7 +50,7 @@ const Reviews = (props) => {
 
   const fetchCurrentReviews = () => {
     changeReviewsLoading(true);
-    apiController.getReviews(productId, { count: 100, sort: sort, pages: nextReviewsPage }).then((results) => {
+    apiController.getReviews(productId, { count: 100 * nextReviewsPage, sort: sort, pages: 1 }).then((results) => {
       changeReviews(results.data.results);
       changeReviewsPage(2);
       changeReviewsLoading(false);
