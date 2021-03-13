@@ -28,7 +28,6 @@ const [products, setProducts] = useState(false);
   //Api call to get the products array.
   return (
     <div>
-      {console.log('the products', products)}
       <Grid container spacing = {1}>
         <Grid item xs = {6}>
       <div style={{width: "85%"}}>
