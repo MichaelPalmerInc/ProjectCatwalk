@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     'justify-items': 'right',
     'align-items': 'center',
     margin: '10px 0',
+    cursor: (props) => (props.onClick ? 'pointer' : 'inherit'),
   },
   title: {
     'text-decoration': 'underline',
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
 const Breakdown = (props) => {
   const classes = useStyles(props);
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={props.onClick}>
       <div className={classes.title}>{props.title}</div>
       <div className={classes.bar}>
         <div className={classes.filled} style={{ width: (props.percentage ? props.percentage : 0) * 100 + '%' }}></div>

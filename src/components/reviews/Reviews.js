@@ -41,10 +41,12 @@ const ratingCount = (ratingObj) => {
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
   const [reviewsByRelevance, setReviewsByRelevance] = useState([]);
+  const [filteredReviews, setFilteredReviews] = useState([]);
   const [nextReviewsPage, setReviewsPage] = useState(1);
   const [reviewsLoading, setReviewsLoading] = useState(true);
   const [reviewMetaData, setReviewMetaData] = useState(exampleMetaData);
   const [metaLoading, setMetaLoading] = useState(true);
+  const [filters, setFilters] = useState(new Array(5).fill(false));
   const [sort, setSort] = useState('relevant');
   const productId = props.productId || exampleProductId;
   const classes = useStyles(props);
@@ -79,8 +81,20 @@ const Reviews = (props) => {
     });
   };
 
+  const toggleFilter = (rating) => {
+    const newFilters = [...filters];
+    newFilters[rating - 1] = !newFilters[rating - 1];
+    console.log('filters: ', newFilters);
+    setFilters(newFilters);
+  };
+
+  const clearFilters = () => {
+    setFilters(new Array(5).fill(false));
+  };
+
   useEffect(() => {
     setReviewsPage(1);
+    setFilters(new Array(5).fill(false));
     setReviews([]);
     setReviewMetaData(exampleMetaData);
     fetchMoreReviews();
@@ -105,14 +119,31 @@ const Reviews = (props) => {
     setReviews(sortedReviews);
   }, [sort, reviewsByRelevance]);
 
+  // Automatically filter reviews when necessary
+  useEffect(() => {
+    if (!filters.reduce((acc, filter) => acc || filter, false)) {
+      setFilteredReviews(reviews);
+    } else {
+      let filtered = reviews.filter((review) => filters[review.rating - 1]);
+      setFilteredReviews(filtered);
+    }
+  }, [filters, reviews]);
+
   return (
     <div className={classes.root}>
       <h6 className={classes.title}>Ratings & Reviews</h6>
-      <ReviewsOverview className={classes.left} data={reviewMetaData} loading={metaLoading} />
+      <ReviewsOverview
+        className={classes.left}
+        data={reviewMetaData}
+        loading={metaLoading}
+        filters={filters}
+        toggleFilter={toggleFilter}
+        clearFilters={clearFilters}
+      />
       <ReviewsList
         refresh={fetchCurrentReviews}
         className={classes.right}
-        data={reviews}
+        data={filteredReviews}
         loading={reviewsLoading}
         meta={reviewMetaData}
         productId={productId}
