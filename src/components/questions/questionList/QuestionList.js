@@ -51,12 +51,15 @@ var QuestionList = ({ productId }) => {
   return (
     <div>
       <Search questions = {questions} handleChange = {handleInputChange}/>
-      {currentQuestions.slice(0, qCount).map((question) => {
-        return (
-          <Question question = {question} key = {question.question_id} />
-        )
-      }
-      )}
+
+      <div className = 'scroll_list'>
+        {currentQuestions.slice(0, qCount).map((question) => {
+          return (
+            <Question question = {question} key = {question.question_id} />
+          )
+        }
+        )}
+      </div>
 
       <div className="q_list_btns">
         <div style={{ marginRight: '30px' }}>{loadBtn}</div>
