@@ -13,6 +13,7 @@ import {
 import { Fragment } from 'react';
 import { useState } from 'react';
 import apiController from '../../apiController';
+import ImageUploadButton from '../shared/imageUploadButton';
 import Rating from '../shared/Rating';
 import { characteristicValues } from './Reviews';
 
@@ -66,9 +67,9 @@ const AddReviewModal = (props) => {
   const [summary, setSummary] = useState('');
   const [characteristics, setCharacteristics] = useState(new Array(6).fill(0));
   const [rating, setRating] = useState(0);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const submitFormWithImages = (imageUrls) => {
     const charObj = Object.keys(props.characteristics).reduce((obj, key, i) => {
       obj[props.characteristics[key].id] = parseInt(characteristics[i]);
       return obj;
@@ -82,9 +83,15 @@ const AddReviewModal = (props) => {
       name: nickname,
       email,
       characteristics: charObj,
+      photos: imageUrls,
     };
     apiController.postReview(params);
     handleClose();
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormSubmitted(true);
   };
 
   const handleClose = () => {
@@ -198,6 +205,7 @@ const AddReviewModal = (props) => {
               }}
               onBlur={validateBody}
             />
+            <ImageUploadButton triggerUpload={formSubmitted} onUploadSuccess={submitFormWithImages} />
             <Button className={classes.submit} type="submit" variant="contained" color="primary">
               Submit Review
             </Button>
