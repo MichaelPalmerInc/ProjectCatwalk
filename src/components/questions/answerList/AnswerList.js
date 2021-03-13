@@ -56,7 +56,7 @@ var AnswerList = (props) => {
               <Answer answer = {individualAnswer} key = {individualAnswer.answer_id} />
             );
           })}
-          {button}
+          <div>{button}</div>
       </div>
     </div>
   )
