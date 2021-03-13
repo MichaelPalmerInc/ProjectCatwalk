@@ -56,8 +56,10 @@ const ReviewsList = (props) => {
     <div className={`${props.className}`}>
       <div className={classes.count}>
         {props.data.length} Reviews, sorted by{' '}
-        <select className={classes.sortDropdown}>
-          <option selected>relevance</option>
+        <select className={classes.sortDropdown} value={props.sort} onChange={(e) => props.setSort(e.target.value)}>
+          <option value="relevant">relevance</option>
+          <option value="helpful">helpfulness</option>
+          <option value="newest">newest</option>
         </select>
       </div>
       <div className={classes.reviewList}>
