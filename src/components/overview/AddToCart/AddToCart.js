@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
 }));
 const AddToCart = ({skus}) => {
@@ -24,14 +24,18 @@ const AddToCart = ({skus}) => {
 
   const handleChange = (event) => {
     setSize(event.target.value);
+    checkDisable(event);
     console.log(event.target.value);
   };
 
   const checkDisable = (event) => {
+    console.log(event.target.value);
     if (event.target.value !== 'Select Size') {
-    return  {disabled: false} ;
+      isDisabled = false;
+      console.log('inside false ' ,isDisabled);
     } else {
-      return {disabled: true };
+      console.log('inside true ', isDisabled);
+      isDisabled = true;;
     }
 
   }
@@ -67,14 +71,14 @@ const AddToCart = ({skus}) => {
 
       </Grid>
       <Grid item xs = {6}>
-      <FormControl variant="outlined" className={classes.formControl}disabled = {checkDisable}>
+      <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="quantity">-</InputLabel>
         <Select
           labelId="quantity"
           id="quantity "
           value={size}
-          onChange={handleChange}
-
+          // onChange={handleChange}
+          disabled = {isDisabled}
         >
           <MenuItem value="">
             <em>-</em>

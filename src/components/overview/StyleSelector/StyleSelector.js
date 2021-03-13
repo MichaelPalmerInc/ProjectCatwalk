@@ -5,7 +5,7 @@ import apiController from '../../../apiController'
 
 
 const StyleSelector = ({products, onChange}) => {
-  let productId = products.id || 2111;
+  let productId = products.id;
   const getData = () => {
     apiController.getProductStyles(productId)
     .then(data => {
@@ -35,13 +35,14 @@ const [selectedStyle, setSelectedStyle] = useState(0);
 return (
 <div>
 <p><em>Style ></em> {styles[selectedStyle] ? styles[selectedStyle].name:''}</p>
-{console.log(styles)}
+{console.log('the styles ', styles)}
+{console.log(styles.length)}
     <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
       {styles.map((style,index) => (
         <Grid item xs = {3}>
         <Avatar onClick={(event) => {
           handleClick(index);
-        }} src={style.photos.thumbnail_url}></Avatar>
+        }} src={style.photos[index] ? style.photos[index].thumbnail_url:''}></Avatar>
       </Grid>
       ))}
     </Grid>
