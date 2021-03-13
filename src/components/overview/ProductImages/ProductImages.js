@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import apiController from '../../../apiController.js'
 import ProductCarousel from '../ProductCarousel/ProductCarousel.js'
 const ProductImages = ({products}) => {
-  let productId = products.id || 21111;
+  let productId = products.id;
   const getData = () => {
     apiController.getProductStyles(productId)
     .then(data => {

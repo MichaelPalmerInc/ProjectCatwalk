@@ -4,7 +4,7 @@ import Questions from '../questions/Questions.js';
 import Reviews from '../reviews/Reviews';
 import { useState } from 'react';
 function App() {
-  const [currProduct, setCurrProduct] = useState(21111);
+  const [currProduct, setCurrProduct] = useState(21118);
   return (
     <div className="App">
       <Overview productId={currProduct} />
