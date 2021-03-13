@@ -16,24 +16,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AddToCart = ({skus}) => {
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorEl2, setAnchorEl2] = React.useState(null);
   const [size, setSize] = React.useState('');
-
+  const [sku, setSku] = React.useState('');
   const classes = useStyles();
+  let rows = [];
+  let isDisabled = true;
 
   const handleChange = (event) => {
     setSize(event.target.value);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-    setAnchorEl2(null);
+    console.log(event.target.value);
   };
 
+  const checkDisable = (event) => {
+    if (event.target.value !== 'Select Size') {
+    return  {disabled: false} ;
+    } else {
+      return {disabled: true };
+    }
+
+  }
+
+  for (let i = 1; i <= sku.quantity; i++) {
+    rows.push(i);
+  }
   return (
     <div>
     <div>
-
     <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
     <Grid item xs = {6}>
     <FormControl variant="outlined" className={classes.formControl}>
@@ -49,29 +57,38 @@ const AddToCart = ({skus}) => {
           </MenuItem>
          {Object.keys(skus).map(keyname => (
           <MenuItem value = {skus[keyname].size} onClick={(e)=> {
-            console.log(skus[keyname].size);
-            handleClose();
-          }}
+            console.log(skus[keyname]);
+            setSku(skus[keyname]);
+                    }}
            >{skus[keyname].size}</MenuItem>
         ))}
         </Select>
       </FormControl>
+
       </Grid>
       <Grid item xs = {6}>
-      <Button aria-controls="quantity" aria-haspopup="true" onClick={e => setAnchorEl2(e.currentTarget)}>
-        -
-      </Button>
-      <Menu
-        id="quantity"
-        anchorEl={anchorEl2}
-        keepMounted
-        open={Boolean(anchorEl2)}
-        onClose={handleClose}
-      >
-       {Object.keys(skus).map(keyname => (
-          <MenuItem onClick={handleClose}>{skus[keyname].quantity}</MenuItem>
-        ))}
-      </Menu>
+      <FormControl variant="outlined" className={classes.formControl}disabled = {checkDisable}>
+        <InputLabel id="quantity">-</InputLabel>
+        <Select
+          labelId="quantity"
+          id="quantity "
+          value={size}
+          onChange={handleChange}
+
+        >
+          <MenuItem value="">
+            <em>-</em>
+          </MenuItem>
+         {rows.map(quantity => (
+
+           <MenuItem value = {quantity} onClick={(e)=> {
+             console.log(quantity);
+           }}
+            >{quantity}</MenuItem>
+         ))
+        }
+        </Select>
+      </FormControl>
       </Grid>
       <Grid item xs = {6}>
     <Button variant="outlined">Add To Bag</Button>

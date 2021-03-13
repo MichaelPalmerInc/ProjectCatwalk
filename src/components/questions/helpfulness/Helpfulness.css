@@ -1,3 +1,9 @@
 .help {
   font-size: small;
 }
+
+.add_link {
+  cursor: default;
+  margin-left: 5px;
+  margin-right: 5px;
+}

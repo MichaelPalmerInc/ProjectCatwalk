@@ -1,6 +1,7 @@
 
 .question_container {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  padding: 5px;
   max-width: 60%;
 }
 

@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import SearchBar from 'material-ui-search-bar';
+import './Search.css';
 
-var Search = () => {
+var Search = (props) => {
+
   return (
-    <form>
-      <input type = 'text' placeholder = 'Have a question? Search for answers...'></input>
-      <input type = 'submit'></input>
-    </form>
+    <div className = 'search_form'>
+      <SearchBar
+        onChange={(value) => props.handleChange(value)}
+        style={{
+          minWidth: 500
+        }}
+      />
+    </div>
   )
 };
 
