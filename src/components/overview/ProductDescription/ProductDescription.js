@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-const ProductDescription = () => {
+const ProductDescription = ({products}) => {
+
+//   const [description, setDescription] = useState('');
+//   const [features, setFeatures] = useState([]);
+
+//   useEffect(() => {
+//     setDescription(products.description);
+//     setFeatures(products.features)
+// }, products);
 
   return (
     <div>
-      This is the product description. Blah blah blah
+      <div>
+       {products ? products.description : ''}
+     </div>
+
     </div>
+
   )
 }
 

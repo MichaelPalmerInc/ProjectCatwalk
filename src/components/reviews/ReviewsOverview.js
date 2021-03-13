@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 
 import Breakdown from './Breakdown';
 import ProductBreakdown from './ProductBreakdown';
@@ -31,6 +31,11 @@ const useStyles = makeStyles({
   breakdownContainer: {
     'margin-bottom': '2rem',
   },
+  filterButton: {
+    fontSize: '0.75rem',
+    minWidth: 0,
+    padding: '0 4px',
+  },
 });
 
 const averageRating = (ratingObj) => {
@@ -50,6 +55,7 @@ const ReviewsOverview = (props) => {
   const rating = averageRating(props.data.ratings);
   const total = props.data.total;
   const characteristicBreakdowns = [];
+  const filtered = props.filters.reduce((a, v) => a || v, false);
   for (let characteristic in props.data.characteristics) {
     characteristicBreakdowns.push(
       <ProductBreakdown
@@ -59,7 +65,6 @@ const ReviewsOverview = (props) => {
       />
     );
   }
-  console.log('Data: ', props.data);
   return (
     <div className={`${classes.root} ${props.className}`}>
       <div className={classes.starRating}>
@@ -68,11 +73,28 @@ const ReviewsOverview = (props) => {
       </div>
       <div className={classes.usersRecommend}>100% of reviews recommend this product</div>
       <div className={classes.breakdownContainer}>
-        <Breakdown title="5 stars" percentage={props.data.ratings[5] / total} />
-        <Breakdown title="4 stars" percentage={props.data.ratings[4] / total} />
-        <Breakdown title="3 stars" percentage={props.data.ratings[3] / total} />
-        <Breakdown title="2 stars" percentage={props.data.ratings[2] / total} />
-        <Breakdown title="1 stars" percentage={props.data.ratings[1] / total} />
+        <Breakdown title="5 stars" percentage={props.data.ratings[5] / total} onClick={() => props.toggleFilter(5)} />
+        <Breakdown title="4 stars" percentage={props.data.ratings[4] / total} onClick={() => props.toggleFilter(4)} />
+        <Breakdown title="3 stars" percentage={props.data.ratings[3] / total} onClick={() => props.toggleFilter(3)} />
+        <Breakdown title="2 stars" percentage={props.data.ratings[2] / total} onClick={() => props.toggleFilter(2)} />
+        <Breakdown title="1 stars" percentage={props.data.ratings[1] / total} onClick={() => props.toggleFilter(1)} />
+        <div className={classes.filterList}>
+          {filtered ? <div className={classes.filterTitle}>Filters:</div> : null}
+          {props.filters.map((bool, index) => {
+            if (bool)
+              return (
+                <Button size="small" className={classes.filterButton} onClick={() => props.toggleFilter(index + 1)}>
+                  {index + 1} Stars
+                </Button>
+              );
+            return null;
+          })}
+          {filtered ? (
+            <Button size="small" className={classes.filterButton} onClick={props.clearFilters}>
+              Clear all
+            </Button>
+          ) : null}
+        </div>
       </div>
       <div className={classes.productBreakdownContainer}>{characteristicBreakdowns}</div>
     </div>
