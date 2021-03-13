@@ -90,34 +90,20 @@ const Reviews = (props) => {
   // Automatically sort the reviews into the proper order whenever new reviews are fetched or the user selects
   // a different sorting option.
   useEffect(() => {
-    console.log('hello?');
     let sortedReviews = [...reviewsByRelevance];
     switch (sort) {
       case 'helpful':
-        console.log('helpful');
         sortedReviews.sort((a, b) => b.helpfulness - a.helpfulness);
-        console.log('sorted: ', sortedReviews);
         break;
       case 'newest':
-        console.log('newest');
         sortedReviews.sort((a, b) => b.date.localeCompare(a.date));
-        console.log('sorted: ', sortedReviews);
         break;
       case 'relevant':
       default:
-        console.log('relevance');
         break;
     }
     setReviews(sortedReviews);
   }, [sort, reviewsByRelevance]);
-
-  useEffect(() => {
-    console.log('reviews: ', reviews);
-  }, [reviews]);
-
-  useEffect(() => {
-    console.log('byRelevance: ', reviewsByRelevance);
-  }, [reviewsByRelevance]);
 
   return (
     <div className={classes.root}>
