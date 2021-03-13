@@ -5,52 +5,52 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { Grid } from '@material-ui/core';
 
 
-const AddToCart = () => {
+const AddToCart = ({skus}) => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
 
   const handleClose = () => {
     setAnchorEl(null);
+    setAnchorEl2(null);
   };
 
   return (
     <div>
     <div>
+      {/* {console.log('the skus')}
+      {console.log(skus)} */}
     <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
     <Grid item xs = {6}>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Button aria-controls="sizes" aria-haspopup="true" onClick={e => setAnchorEl(e.currentTarget)}>
         Select Size
       </Button>
       <Menu
-        id="simple-menu"
+        id="sizes"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>S</MenuItem>
-        <MenuItem onClick={handleClose}>M</MenuItem>
-        <MenuItem onClick={handleClose}>L</MenuItem>
+        {Object.keys(skus).map(keyname => (
+          <MenuItem onClick={handleClose}>{skus[keyname].size}</MenuItem>
+        ))}
       </Menu>
       </Grid>
       <Grid item xs = {6}>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        Quantity
+      <Button aria-controls="quantity" aria-haspopup="true" onClick={e => setAnchorEl2(e.currentTarget)}>
+        -
       </Button>
       <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
+        id="quantity"
+        anchorEl={anchorEl2}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={Boolean(anchorEl2)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>1</MenuItem>
-        <MenuItem onClick={handleClose}>2</MenuItem>
-        <MenuItem onClick={handleClose}>3</MenuItem>
+       {Object.keys(skus).map(keyname => (
+          <MenuItem onClick={handleClose}>{skus[keyname].quantity}</MenuItem>
+        ))}
       </Menu>
       </Grid>
       <Grid item xs = {6}>

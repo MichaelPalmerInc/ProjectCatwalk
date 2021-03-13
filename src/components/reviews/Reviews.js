@@ -93,6 +93,8 @@ const Reviews = (props) => {
         data={reviews}
         loadMore={reviews.length < (nextReviewsPage - 1) * 2 ? null : fetchMoreReviews}
         loading={reviewsLoading}
+        meta={reviewMetaData}
+        productId={productId}
       />
     </div>
   );
