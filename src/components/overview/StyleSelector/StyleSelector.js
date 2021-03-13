@@ -21,13 +21,11 @@ const StyleSelector = ({products, onChange}) => {
   }, [productId]);
 
   const handleClick = (styleId) => {
-    console.log('Clicked');
     setSelectedStyle(styleId);
-    console.log(styles[selectedStyle].sale_price)
-    if(styles[selectedStyle].sale_price === null) {
-      onChange(styles[selectedStyle].original_price);
+    if(styles[styleId].sale_price === null) {
+      onChange(styles[styleId].original_price, styles[styleId].skus );
     } else {
-      onChange(styles[selectedStyle].sale_price);
+      onChange(styles[styleId].sale_price, styles[styleId].skus);
     }
   }
 
@@ -36,10 +34,9 @@ const [selectedStyle, setSelectedStyle] = useState(0);
 
 return (
 <div>
-
 <p><em>Style ></em> {styles[selectedStyle] ? styles[selectedStyle].name:''}</p>
+{console.log(styles)}
     <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
-    {console.log(styles)}
       {styles.map((style,index) => (
         <Grid item xs = {3}>
         <Avatar onClick={(event) => {

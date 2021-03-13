@@ -17,6 +17,7 @@ const ProductImages = ({products}) => {
     getData();
   }, [productId]);
 
+  const [allImages, setAllImages] = useState('');
   const [mainImage, setMainImage] = useState('');
   return (
     <div>
