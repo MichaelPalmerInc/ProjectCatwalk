@@ -84,7 +84,6 @@ const Reviews = (props) => {
   const toggleFilter = (rating) => {
     const newFilters = [...filters];
     newFilters[rating - 1] = !newFilters[rating - 1];
-    console.log('filters: ', newFilters);
     setFilters(newFilters);
   };
 
