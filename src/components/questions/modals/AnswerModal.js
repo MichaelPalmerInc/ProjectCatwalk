@@ -24,7 +24,8 @@ const useStyles = makeStyles(theme => ({
         fontSize: "small",
         border: 'none',
         cursor: 'pointer',
-        textTransform: 'capitalize'
+        textTransform: 'capitalize',
+        'margin-top': '-5px'
       }
 }));
 
