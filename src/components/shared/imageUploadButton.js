@@ -52,6 +52,7 @@ const ImageUploadButton = (props) => {
           }
         })
         .catch((err) => {
+          console.log(err.response);
           if (typeof props.onUploadFailure === 'function') {
             props.onUploadFailure(err.response);
           }
@@ -59,13 +60,15 @@ const ImageUploadButton = (props) => {
     } else if (props.triggerUpload && typeof props.onUploadSuccess === 'function') {
       props.onUploadSuccess([]);
     }
-  }, [props]);
+  }, [props.triggerUpload]);
 
   const addImage = (image) => {
-    const newImages = [...images];
-    newImages.push(image);
-    setImages(newImages);
-    setImageUrls([...imageUrls, URL.createObjectURL(image)]);
+    if (image) {
+      const newImages = [...images];
+      newImages.push(image);
+      setImages(newImages);
+      setImageUrls([...imageUrls, URL.createObjectURL(image)]);
+    }
   };
 
   const removeImage = (index) => {
@@ -84,7 +87,7 @@ const ImageUploadButton = (props) => {
           <img alt="upload preview" className={classes.imagePreview} src={image} />
         ))}
       </div>
-      <input onChange={(e) => addImage(e.target.files)} accept="image/*" hidden id={id.current} type="file" />
+      <input onChange={(e) => addImage(e.target.files[0])} accept="image/*" hidden id={id.current} type="file" />
       <label htmlFor={id.current}>
         <Button variant="contained" component="span" color="primary">
           Upload Images
