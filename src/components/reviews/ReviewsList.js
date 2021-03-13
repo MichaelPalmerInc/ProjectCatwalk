@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 const ReviewsList = (props) => {
   const classes = useStyles(props);
   const [modalOpen, setModalOpen] = useState(false);
+  const [reviewsShowing, setReviewsShowing] = useState(2);
 
   const addReview = (event) => {
     setModalOpen(true);
@@ -54,19 +55,19 @@ const ReviewsList = (props) => {
   return (
     <div className={`${props.className}`}>
       <div className={classes.count}>
-        {props.meta.total} Reviews, sorted by{' '}
+        {props.data.length} Reviews, sorted by{' '}
         <select className={classes.sortDropdown}>
           <option selected>relevance</option>
         </select>
       </div>
       <div className={classes.reviewList}>
-        {props.data.map((review) => (
-          <Review refresh={props.refresh} {...review} />
-        ))}
+        {props.data
+          .map((review) => <Review refresh={props.refresh} {...review} />)
+          .filter((v, i) => i < reviewsShowing)}
       </div>
       <div className={classes.buttons}>
-        {props.loadMore ? (
-          <Button variant="text" color="primary" onClick={props.loadMore}>
+        {reviewsShowing < props.data.length ? (
+          <Button variant="text" color="primary" onClick={() => setReviewsShowing(reviewsShowing + 2)}>
             More Reviews
           </Button>
         ) : (

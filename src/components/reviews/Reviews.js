@@ -50,15 +50,16 @@ const Reviews = (props) => {
 
   const fetchCurrentReviews = () => {
     changeReviewsLoading(true);
-    apiController.getReviews(productId, { count: 2 * (nextReviewsPage - 1), sort: sort }).then((results) => {
+    apiController.getReviews(productId, { count: 100, sort: sort, pages: nextReviewsPage }).then((results) => {
       changeReviews(results.data.results);
+      changeReviewsPage(2);
       changeReviewsLoading(false);
     });
   };
 
   const fetchMoreReviews = () => {
     changeReviewsLoading(true);
-    apiController.getReviews(productId, { count: 2, sort: sort, pages: nextReviewsPage }).then((results) => {
+    apiController.getReviews(productId, { count: 100, sort: sort, pages: nextReviewsPage }).then((results) => {
       changeReviews(reviews.concat(results.data.results));
       changeReviewsPage(nextReviewsPage + 1);
       changeReviewsLoading(false);
