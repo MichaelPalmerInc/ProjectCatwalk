@@ -10,7 +10,7 @@ import apiController from '../../apiController';
 
 
 // move state to overview. Pass down products to each component as needed.
-const Overview = ({productId = 21111})  => {
+const Overview = ({productId})  => {
 
   const getData = () => {
     apiController.getProduct(productId)
@@ -25,6 +25,7 @@ const Overview = ({productId = 21111})  => {
   useEffect(() => {
     getData();
 }, [productId]);
+
 const [products, setProducts] = useState(false);
   //Api call to get the products array.
   return (
