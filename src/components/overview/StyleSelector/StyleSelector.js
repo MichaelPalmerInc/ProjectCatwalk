@@ -44,13 +44,12 @@ const StyleSelector = ({products, onChange}) => {
 return (
 <div>
 <p><em>Style ></em> {styles[selectedStyle] ? styles[selectedStyle].name:''}</p>
-{console.log(styles)}
     <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
       {styles.map((style,index) => (
         <Grid item xs = {3}>
         <Avatar onClick={(event) => {
           handleClick(index);
-        }} src={style.photos.thumbnail_url}></Avatar>
+        }} src={style.photos[index] ? style.photos[index].thumbnail_url: ''}></Avatar>
       </Grid>
       ))}
     </Grid>
