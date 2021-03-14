@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import apiController from '../../apiController';
@@ -39,63 +39,115 @@ const ratingCount = (ratingObj) => {
 };
 
 const Reviews = (props) => {
-  const [reviews, changeReviews] = useState([]);
-  const [nextReviewsPage, changeReviewsPage] = useState(1);
-  const [reviewsLoading, changeReviewsLoading] = useState(true);
-  const [reviewMetaData, changeReviewMetaData] = useState(exampleMetaData);
-  const [metaLoading, changeMetaLoading] = useState(true);
-  const [sort, changeSort] = useState('relevant');
+  const [reviews, setReviews] = useState([]);
+  const [reviewsByRelevance, setReviewsByRelevance] = useState([]);
+  const [filteredReviews, setFilteredReviews] = useState([]);
+  const [nextReviewsPage, setReviewsPage] = useState(1);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [reviewMetaData, setReviewMetaData] = useState(exampleMetaData);
+  const [metaLoading, setMetaLoading] = useState(true);
+  const [filters, setFilters] = useState(new Array(5).fill(false));
+  const [sort, setSort] = useState('relevant');
   const productId = props.productId || exampleProductId;
   const classes = useStyles(props);
 
   const fetchCurrentReviews = () => {
-    changeReviewsLoading(true);
-    apiController.getReviews(productId, { count: 100 * nextReviewsPage, sort: sort, pages: 1 }).then((results) => {
-      changeReviews(results.data.results);
-      changeReviewsPage(2);
-      changeReviewsLoading(false);
-    });
+    setReviewsLoading(true);
+    apiController
+      .getReviews(productId, { count: 100 * nextReviewsPage, sort: 'relevant', pages: 1 })
+      .then((results) => {
+        setReviewsByRelevance(results.data.results);
+        setReviewsPage(2);
+        setReviewsLoading(false);
+      });
   };
 
   const fetchMoreReviews = () => {
-    changeReviewsLoading(true);
-    apiController.getReviews(productId, { count: 100, sort: sort, pages: nextReviewsPage }).then((results) => {
-      changeReviews(reviews.concat(results.data.results));
-      changeReviewsPage(nextReviewsPage + 1);
-      changeReviewsLoading(false);
+    setReviewsLoading(true);
+    apiController.getReviews(productId, { count: 100, sort: 'relevant', pages: nextReviewsPage }).then((results) => {
+      setReviewsByRelevance(reviewsByRelevance.concat(results.data.results));
+      setReviewsPage(nextReviewsPage + 1);
+      setReviewsLoading(false);
     });
   };
 
   const fetchMetadata = () => {
-    changeMetaLoading(true);
+    setMetaLoading(true);
     apiController.getReviewMetaData(productId).then((results) => {
       const total = ratingCount(results.data.ratings);
       results.data.total = total;
-      changeReviewMetaData(results.data);
-      changeMetaLoading(false);
+      setReviewMetaData(results.data);
+      setMetaLoading(false);
     });
   };
 
+  const toggleFilter = (rating) => {
+    const newFilters = [...filters];
+    newFilters[rating - 1] = !newFilters[rating - 1];
+    setFilters(newFilters);
+  };
+
+  const clearFilters = () => {
+    setFilters(new Array(5).fill(false));
+  };
+
   useEffect(() => {
-    changeReviewsPage(1);
-    changeReviews([]);
-    changeReviewMetaData(exampleMetaData);
+    setReviewsPage(1);
+    setFilters(new Array(5).fill(false));
+    setReviews([]);
+    setReviewMetaData(exampleMetaData);
     fetchMoreReviews();
     fetchMetadata();
   }, [productId]);
 
+  // Automatically sort the reviews into the proper order whenever new reviews are fetched or the user selects
+  // a different sorting option.
+  useEffect(() => {
+    let sortedReviews = [...reviewsByRelevance];
+    switch (sort) {
+      case 'helpful':
+        sortedReviews.sort((a, b) => b.helpfulness - a.helpfulness);
+        break;
+      case 'newest':
+        sortedReviews.sort((a, b) => b.date.localeCompare(a.date));
+        break;
+      case 'relevant':
+      default:
+        break;
+    }
+    setReviews(sortedReviews);
+  }, [sort, reviewsByRelevance]);
+
+  // Automatically filter reviews when necessary
+  useEffect(() => {
+    if (!filters.reduce((acc, filter) => acc || filter, false)) {
+      setFilteredReviews(reviews);
+    } else {
+      let filtered = reviews.filter((review) => filters[review.rating - 1]);
+      setFilteredReviews(filtered);
+    }
+  }, [filters, reviews]);
+
   return (
     <div className={classes.root}>
       <h6 className={classes.title}>Ratings & Reviews</h6>
-      <ReviewsOverview className={classes.left} data={reviewMetaData} loading={metaLoading} />
+      <ReviewsOverview
+        className={classes.left}
+        data={reviewMetaData}
+        loading={metaLoading}
+        filters={filters}
+        toggleFilter={toggleFilter}
+        clearFilters={clearFilters}
+      />
       <ReviewsList
         refresh={fetchCurrentReviews}
         className={classes.right}
-        data={reviews}
-        loadMore={reviews.length < (nextReviewsPage - 1) * 2 ? null : fetchMoreReviews}
+        data={filteredReviews}
         loading={reviewsLoading}
         meta={reviewMetaData}
         productId={productId}
+        setSort={setSort}
+        sort={sort}
       />
     </div>
   );
