@@ -10,22 +10,18 @@ var AnswerList = (props) => {
   const [aCount, setACount] = useState(2);
 
   var questionId = props.qId;
-  var params = {page: 1, count: 5}
-
+  var params = {page: 1, count: 500}
 
   var getAnswers = (questionId, params) => {
     apiController.getAnswers(questionId, params)
     .then((response) => {
-      setAnswers(response.data.results);
+      var sortedResponse = response.data.results.slice().sort((a) => (a.answerer_name === 'Seller') ? (-1) : 1);
+      setAnswers(sortedResponse);
     })
   }
 
   useEffect(() => {
-    getAnswers(questionId, {params})
-  }, []);
-
-  useEffect(() => {
-    getAnswers(questionId, {params})
+    getAnswers(questionId, params)
   }, [questionId]);
 
 

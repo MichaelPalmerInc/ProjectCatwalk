@@ -5,20 +5,31 @@ import apiController from '../../../apiController'
 
 
 const StyleSelector = ({products, onChange}) => {
-  let productId = products.id || 2111;
+  const [styles, setStyles] = useState([]);
+  const [selectedStyle, setSelectedStyle] = useState(0);
+
+
+  let productId = products.id;
   const getData = () => {
     apiController.getProductStyles(productId)
     .then(data => {
-    const productStyles = data.data.results;
-    setStyles(productStyles);
-  })
-  .catch(err => {
-    console.error(err);
-  })
-}
+      setStyles(data.data.results);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
   useEffect(() => {
     getData();
   }, [productId]);
+
+  useEffect(() => {
+    if (styles.length !== 0) {
+      handleClick(0);
+    }
+  }, [styles]);
+
+
 
   const handleClick = (styleId) => {
     setSelectedStyle(styleId);
@@ -29,8 +40,6 @@ const StyleSelector = ({products, onChange}) => {
     }
   }
 
-const [styles, setStyles] = useState([]);
-const [selectedStyle, setSelectedStyle] = useState(0);
 
 return (
 <div>
