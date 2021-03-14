@@ -40,7 +40,7 @@ return (
         <Grid item xs = {3}>
         <Avatar onClick={(event) => {
           handleClick(index);
-        }} src={style.photos.thumbnail_url}></Avatar>
+        }} src={style.photos[index] ? style.photos[index].thumbnail_url: ''}></Avatar>
       </Grid>
       ))}
     </Grid>
