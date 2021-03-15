@@ -26,20 +26,21 @@ const Overview = ({productId})  => {
 }, [productId]);
 
 const [products, setProducts] = useState(false);
+const [styleIndex, setStyleIndex] = useState(0);
   //Api call to get the products array.
   return (
     <div>
       <Grid container spacing = {1}>
         <Grid item xs = {6}>
       <div style={{width: "85%"}}>
-        <ProductImages products ={products}/>
+        <ProductImages products ={products} styleIndex = {styleIndex}/>
 
         <ProductCarousel/>
       </div>
       </Grid>
       <Grid item xs = {6}>
         <div style={{width: "45%"}}>
-          <ProductInfo products = {products} />
+          <ProductInfo products = {products} onChange = {setStyleIndex}/>
         </div>
       </Grid>
       </Grid>

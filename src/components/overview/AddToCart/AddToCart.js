@@ -2,8 +2,11 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import {Grid,FormControl,InputLabel,Select,makeStyles } from '@material-ui/core';
-
+import {Grid,FormControl, InputLabel, Select, makeStyles, IconButton } from '@material-ui/core';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import RedditIcon from '@material-ui/icons/Reddit';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -18,6 +21,7 @@ const AddToCart = ({skus}) => {
 
   const [size, setSize] = React.useState('');
   const [sku, setSku] = React.useState('');
+  const [quantity, setQuantity] = React.useState('');
   const [isDisabled, setDisabled] = React.useState(true);
   const classes = useStyles();
   let rows = [];
@@ -27,6 +31,10 @@ const AddToCart = ({skus}) => {
     checkDisable(event);
     console.log(event.target.value);
   };
+
+  const handleQuantity = (event) => {
+    setQuantity(event.target.value);
+  }
 
   const checkDisable = (event) => {
     console.log(event.target.value);
@@ -76,8 +84,8 @@ const AddToCart = ({skus}) => {
         <Select
           labelId="quantity"
           id="quantity "
-          value={size}
-          // onChange={handleChange}
+          value={quantity}
+          onChange={handleQuantity}
           disabled = {isDisabled}
         >
           <MenuItem value="">
@@ -98,7 +106,18 @@ const AddToCart = ({skus}) => {
     <Button variant="outlined">Add To Bag</Button>
     </Grid>
     <Grid item xs = {6}>
-    <Button variant="outlined">The star button</Button>
+    <IconButton aria-label="Facebook.com" onClick={() => window.open('https://www.Facebook.com')}>
+      <FacebookIcon fontSize="large" />
+      </IconButton>
+      <IconButton aria-label="Twitter.com" onClick={() => window.open('https://www.Twitter.com')}>
+      <TwitterIcon fontSize="large" />
+      </IconButton>
+      <IconButton aria-label="Instagram.com" onClick={() => window.open('https://www.Instagram.com')}>
+      <InstagramIcon fontSize="large" />
+      </IconButton>
+      <IconButton aria-label="Reddit.com" onClick={() => window.open('https://www.Reddit.com')}>
+      <RedditIcon fontSize="large" />
+      </IconButton>
     </Grid>
       </Grid>
     </div>

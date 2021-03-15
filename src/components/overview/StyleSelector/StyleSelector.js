@@ -31,7 +31,7 @@ const StyleSelector = ({ products, onChange }) => {
   const handleClick = (styleId) => {
     setSelectedStyle(styleId);
     if (styles[styleId].sale_price === null) {
-      onChange(styles[styleId].original_price, styles[styleId].skus);
+      onChange(styles[styleId].original_price, styles[styleId].skus, styleId);
     } else {
       onChange(styles[styleId].sale_price, styles[styleId].skus);
     }

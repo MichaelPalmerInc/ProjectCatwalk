@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import AddToCart from '../AddToCart/AddToCart.js';
 import StyleSelector from '../StyleSelector/StyleSelector.js';
-
-const ProductInfo = ({ products }) => {
+const ProductInfo = ({ products, onChange}) => {
   const [price, setPrice] = useState(''); //do we need to keep track of the price?
   const [defaultPrice, setDefaultPrice] = useState('');
   const [skus, setSkus] = useState({});
   const [showPrice, setShowPrice] = useState('');
+
 
   useEffect(() => {
     setDefaultPrice(products.default_price);
@@ -15,7 +15,7 @@ const ProductInfo = ({ products }) => {
   }, [products.default_price]);
 
 
-  const handleTrigger = (newPrice, skus) => {
+  const handleTrigger = (newPrice, skus, index) => {
     setPrice(newPrice);
     if (newPrice < defaultPrice) {
       setShowPrice(<p>
@@ -25,14 +25,16 @@ const ProductInfo = ({ products }) => {
       setShowPrice(<p>${newPrice}</p>);
     }
     setSkus(skus);
+    onChange(index);
   };
 
   return (
     <div>
       {console.log(products)}
-      <div> Reviews component Shared</div>
-      <h3>{products ? products.category : ''}</h3>
-      <h1>{products ? products.name : ''}</h1>
+      <div>
+      </div>
+      <h5>{products ? products.category : ''}</h5>
+      <h4>{products ? products.name : ''}</h4>
       {showPrice}
       <StyleSelector products={products} onChange={handleTrigger} />
       <AddToCart skus={skus} />
