@@ -42,6 +42,7 @@ const StyleSelector = ({ products, onChange }) => {
       <p>
         <em>Style ></em> {styles[selectedStyle] ? styles[selectedStyle].name : ''}
       </p>
+      {console.log(styles)}
       <Grid container direction="row" alignItems="center" alignContent="center" justify="center" spacing={1}>
         {styles.map((style, index) => (
           <Grid item xs={3}>
@@ -49,7 +50,7 @@ const StyleSelector = ({ products, onChange }) => {
               onClick={(event) => {
                 handleClick(index);
               }}
-              src={style.photos[index] ? style.photos[index].thumbnail_url : ''}
+              src={style.photos[0] ? style.photos[0].thumbnail_url : ''}
             ></Avatar>
           </Grid>
         ))}

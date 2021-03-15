@@ -12,7 +12,7 @@ const ProductImages = ({products}) => {
     const productStyles = data.data.results[0].photos[0].url;
     const imageArr = data.data.results[0].photos;
     setMainImage(productStyles);
-    setAllImages(imageArr)
+    setAllImages(imageArr);
   })
   .catch(err => {
     console.error(err);
@@ -42,7 +42,7 @@ const ProductImages = ({products}) => {
         <Slider>
         {allImages.map((image, index)=> (
            <Slide index = {index}>
-             <ImageWithZoom alt={"The style's name"} src={image.url}></ImageWithZoom>
+             <ImageWithZoom  alt={"The style's name"} src={image.url}></ImageWithZoom>
              </Slide>
 
          ))}

@@ -18,9 +18,9 @@ const AddToCart = ({skus}) => {
 
   const [size, setSize] = React.useState('');
   const [sku, setSku] = React.useState('');
+  const [isDisabled, setDisabled] = React.useState(true);
   const classes = useStyles();
   let rows = [];
-  let isDisabled = true;
 
   const handleChange = (event) => {
     setSize(event.target.value);
@@ -31,11 +31,11 @@ const AddToCart = ({skus}) => {
   const checkDisable = (event) => {
     console.log(event.target.value);
     if (event.target.value !== 'Select Size') {
-      isDisabled = false;
+      setDisabled(false);
       console.log('inside false ' ,isDisabled);
     } else {
       console.log('inside true ', isDisabled);
-      isDisabled = true;;
+      setDisabled(true);
     }
 
   }
