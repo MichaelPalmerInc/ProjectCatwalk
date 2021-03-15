@@ -9,7 +9,12 @@ import store from './store/store.js';
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <div className="container">
+      <header>
+        <h1>Happy Tiger</h1>
+      </header>
+      <App />
+    </div>
   </Provider>,
   document.getElementById('root')
 );
