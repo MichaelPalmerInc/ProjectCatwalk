@@ -2,56 +2,97 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Grid } from '@material-ui/core';
+import {Grid,FormControl,InputLabel,Select,makeStyles } from '@material-ui/core';
 
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(3),
+  },
+}));
 const AddToCart = ({skus}) => {
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const [size, setSize] = React.useState('');
+  const [sku, setSku] = React.useState('');
+  const classes = useStyles();
+  let rows = [];
+  let isDisabled = true;
 
-  const handleClose = () => {
-    setAnchorEl(null);
-    setAnchorEl2(null);
+  const handleChange = (event) => {
+    setSize(event.target.value);
+    checkDisable(event);
+    console.log(event.target.value);
   };
 
+  const checkDisable = (event) => {
+    console.log(event.target.value);
+    if (event.target.value !== 'Select Size') {
+      isDisabled = false;
+      console.log('inside false ' ,isDisabled);
+    } else {
+      console.log('inside true ', isDisabled);
+      isDisabled = true;;
+    }
+
+  }
+
+  for (let i = 1; i <= sku.quantity; i++) {
+    rows.push(i);
+  }
   return (
     <div>
     <div>
-      {/* {console.log('the skus')}
-      {console.log(skus)} */}
     <Grid container direction="row" alignItems="center" alignContent="center" justify ="center" spacing = {1}>
     <Grid item xs = {6}>
-      <Button aria-controls="sizes" aria-haspopup="true" onClick={e => setAnchorEl(e.currentTarget)}>
-        Select Size
-      </Button>
-      <Menu
-        id="sizes"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {Object.keys(skus).map(keyname => (
-          <MenuItem onClick={handleClose}>{skus[keyname].size}</MenuItem>
+    <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="size">Select Size</InputLabel>
+        <Select
+          labelId="size"
+          id="size"
+          value={size}
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>Select Size</em>
+          </MenuItem>
+         {Object.keys(skus).map(keyname => (
+          <MenuItem value = {skus[keyname].size} onClick={(e)=> {
+            console.log(skus[keyname]);
+            setSku(skus[keyname]);
+                    }}
+           >{skus[keyname].size}</MenuItem>
         ))}
-      </Menu>
+        </Select>
+      </FormControl>
+
       </Grid>
       <Grid item xs = {6}>
-      <Button aria-controls="quantity" aria-haspopup="true" onClick={e => setAnchorEl2(e.currentTarget)}>
-        -
-      </Button>
-      <Menu
-        id="quantity"
-        anchorEl={anchorEl2}
-        keepMounted
-        open={Boolean(anchorEl2)}
-        onClose={handleClose}
-      >
-       {Object.keys(skus).map(keyname => (
-          <MenuItem onClick={handleClose}>{skus[keyname].quantity}</MenuItem>
-        ))}
-      </Menu>
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="quantity">-</InputLabel>
+        <Select
+          labelId="quantity"
+          id="quantity "
+          value={size}
+          // onChange={handleChange}
+          disabled = {isDisabled}
+        >
+          <MenuItem value="">
+            <em>-</em>
+          </MenuItem>
+         {rows.map(quantity => (
+
+           <MenuItem value = {quantity} onClick={(e)=> {
+             console.log(quantity);
+           }}
+            >{quantity}</MenuItem>
+         ))
+        }
+        </Select>
+      </FormControl>
       </Grid>
       <Grid item xs = {6}>
     <Button variant="outlined">Add To Bag</Button>

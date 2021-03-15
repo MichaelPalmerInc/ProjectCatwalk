@@ -10,7 +10,7 @@ var AnswerList = (props) => {
   const [aCount, setACount] = useState(2);
 
   var questionId = props.qId;
-  var params = {page: 1, count: 5}
+  var params = {page: 1, count: 500}
 
   var getAnswers = (questionId, params) => {
     apiController.getAnswers(questionId, params)
@@ -21,11 +21,7 @@ var AnswerList = (props) => {
   }
 
   useEffect(() => {
-    getAnswers(questionId, {params})
-  }, []);
-
-  useEffect(() => {
-    getAnswers(questionId, {params})
+    getAnswers(questionId, params)
   }, [questionId]);
 
 
