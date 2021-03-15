@@ -12,6 +12,40 @@ const uniqueId = () => {
 
 const useStyles = makeStyles((theme) => ({
   imageUploader: {},
+  imagePreviewContainer: {
+    display: 'flex',
+  },
+  imagePreview: {
+    boxSizing: 'border-box',
+    position: 'relative',
+    maxWidth: '10rem',
+    maxHeight: '10rem',
+    border: '2px solid ' + theme.palette.primary.main,
+  },
+  imagePreviewDelete: {
+    position: 'relative',
+    maxWidth: 'min-content',
+    height: 'min-content',
+    margin: '1rem',
+    '&:hover:after': {
+      content: '"X"',
+      textAlign: 'right',
+      boxSizing: 'border-box',
+      color: 'red',
+      display: 'block',
+      position: 'absolute',
+      width: '100%',
+      height: 'calc(100% - 4px)', // Literally a magic number. No idea why the overlay is 4px
+      // longer than the image.
+      padding: '5%',
+      top: 0,
+      left: 0,
+      background: 'rgba(155,155,155,0.4)',
+    },
+    '&:hover img': {
+      borderColor: 'rgb(155,155,155)',
+    },
+  },
 }));
 
 /**
@@ -83,8 +117,10 @@ const ImageUploadButton = (props) => {
   return (
     <div className={classes.imageUploader}>
       <div className={classes.imagePreviewContainer}>
-        {imageUrls.map((image) => (
-          <img alt="upload preview" className={classes.imagePreview} src={image} />
+        {imageUrls.map((image, i) => (
+          <div className={classes.imagePreviewDelete} onClick={() => removeImage(i)}>
+            <img alt="upload preview" className={classes.imagePreview} src={image} />
+          </div>
         ))}
       </div>
       <input onChange={(e) => addImage(e.target.files[0])} accept="image/*" hidden id={id.current} type="file" />
